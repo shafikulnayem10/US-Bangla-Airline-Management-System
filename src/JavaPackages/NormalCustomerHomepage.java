@@ -12,7 +12,7 @@ public class NormalCustomerHomepage extends Homepage implements ActionListener {
     protected void initializeButtons() {
         // Create buttons specific to normal customers
         JButton bookFlightButton = new JButton("Book a Flight");
-        JButton viewBookingDetailsButton = new JButton("View Booking Details");
+        JButton viewBookingDetailsButton = new JButton("View Flight Details");
         JButton cancelBookingButton = new JButton("Cancel Booking");
 
         // Style the buttons manually
@@ -99,12 +99,20 @@ public class NormalCustomerHomepage extends Homepage implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         // Handle button click events
         String command = e.getActionCommand();
-        switch (command) {
+       /* switch (command) {
             case "Book a Flight" -> JOptionPane.showMessageDialog(this, "Navigating to flight booking!");
-            case "View Booking Details" -> JOptionPane.showMessageDialog(this, "Displaying booking details!");
+            case "View Flight Details" -> JOptionPane.showMessageDialog(this, "Displaying booking details!");
             case "Cancel Booking" -> JOptionPane.showMessageDialog(this, "Cancel booking functionality!");
             default -> JOptionPane.showMessageDialog(this, "Unknown action: " + command);
-        }
+        }*/
+        if(command.equals("Book a Flight")){
+           new BookTicket();
+           //cancelBookingButton.setVisible(true); // Show the toggle button after booking
+          }
+        else if(command.equals("Cancel Booking")){
+           new CancelTicket();
+           //cancelTicketButton.setVisible(true); // Show the toggle button after booking
+          }
     }
 
     public NormalCustomerHomepage() {

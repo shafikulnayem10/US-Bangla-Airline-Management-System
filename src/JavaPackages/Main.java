@@ -6,7 +6,7 @@ public class Main {
        
         //new NormalCustomerHomepage();
 
-        new PremiumCustomerHomepage();
+        //new PremiumCustomerHomepage();
        // new AdminHomepage();
     }
 }

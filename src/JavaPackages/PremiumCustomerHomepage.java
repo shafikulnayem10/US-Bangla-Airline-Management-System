@@ -81,7 +81,7 @@ public class PremiumCustomerHomepage extends Homepage implements ActionListener 
         premiumSupportButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                premiumSupportButton.setBackground(Color.GREEN); // Change to hover color
+                premiumSupportButton.setBackground(Color.  GREEN); // Change to hover color
             }
 
             @Override

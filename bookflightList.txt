@@ -1,0 +1,4 @@
+Nayeem,kaundia,Chittagong,Sylhet,Round Trip
+
+306,nayeem,mirpur-1,Dhaka,Chittagong,One Way
+300,tajmun,dhaka,Dhaka,Chittagong,One Way

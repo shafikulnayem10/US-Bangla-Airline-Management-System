@@ -1,25 +1,16 @@
-
 package JavaPackages;
 
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.*;
 
 public class BookTicket extends JFrame implements ActionListener {
-    protected JTextField nameField, addressField;
+    protected JTextField nameField, addressField, flightCodeField;
     protected JComboBox<String> fromComboBox, toComboBox, tripTypeComboBox;
     protected JButton bookButton;
 
@@ -41,7 +32,7 @@ public class BookTicket extends JFrame implements ActionListener {
         add(iconPanel, BorderLayout.WEST);
 
         // Form Panel
-        JPanel formPanel = new JPanel(new GridLayout(6, 2, 10, 10));
+        JPanel formPanel = new JPanel(new GridLayout(7, 2, 10, 10));
         Font labelFont = new Font("Arial", Font.BOLD, 14);
         Color labelColor = Color.GREEN;
 
@@ -50,7 +41,7 @@ public class BookTicket extends JFrame implements ActionListener {
         fromLabel.setForeground(labelColor);
         formPanel.add(fromLabel);
         fromComboBox = new JComboBox<>(new String[]{"Dhaka", "Chittagong", "Sylhet"});
-        fromComboBox.setBackground(Color.cyan);
+        fromComboBox.setBackground(Color.CYAN);
         formPanel.add(fromComboBox);
 
         JLabel toLabel = new JLabel("To:");
@@ -66,7 +57,7 @@ public class BookTicket extends JFrame implements ActionListener {
         tripTypeLabel.setForeground(labelColor);
         formPanel.add(tripTypeLabel);
         tripTypeComboBox = new JComboBox<>(new String[]{"One Way", "Round Trip"});
-        tripTypeComboBox.setBackground(Color.cyan);
+        tripTypeComboBox.setBackground(Color.CYAN);
         formPanel.add(tripTypeComboBox);
 
         JLabel nameLabel = new JLabel("Name:");
@@ -82,15 +73,23 @@ public class BookTicket extends JFrame implements ActionListener {
         addressLabel.setForeground(labelColor);
         formPanel.add(addressLabel);
         addressField = new JTextField();
-        addressField.setBackground(Color.orange);
+        addressField.setBackground(Color.ORANGE);
         formPanel.add(addressField);
+
+        JLabel flightCodeLabel = new JLabel("Flight Code:");
+        flightCodeLabel.setFont(labelFont);
+        flightCodeLabel.setForeground(labelColor);
+        formPanel.add(flightCodeLabel);
+        flightCodeField = new JTextField();
+        flightCodeField.setBackground(Color.LIGHT_GRAY); // Allow user input
+        formPanel.add(flightCodeField);
 
         bookButton = new JButton("Book Flight");
         bookButton.setFont(new Font("Arial", Font.BOLD, 16));
         bookButton.setBackground(Color.BLUE);
         bookButton.setForeground(Color.WHITE);
         bookButton.addActionListener(this);
-        formPanel.add(new JLabel()); 
+        formPanel.add(new JLabel());
         formPanel.add(bookButton);
 
         add(formPanel, BorderLayout.CENTER);
@@ -100,7 +99,43 @@ public class BookTicket extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == bookButton) {
-            JOptionPane.showMessageDialog(this, "Ticket Booked Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            String flightCode = flightCodeField.getText().trim();
+            String name = nameField.getText().trim();
+            String address = addressField.getText().trim();
+            String from = (String) fromComboBox.getSelectedItem();
+            String to = (String) toComboBox.getSelectedItem();
+            String tripType = (String) tripTypeComboBox.getSelectedItem();
+
+            // Validate input
+            if (flightCode.isEmpty() || name.isEmpty() || address.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "All fields must be filled!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Create the file if it doesn't exist
+            File file = new File("bookflightList.txt");
+            try {
+                if (!file.exists() && !file.createNewFile()) {
+                    JOptionPane.showMessageDialog(this, "Failed to create the file!", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Error creating file!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Write booking details to the file
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
+                writer.write(flightCode + "," + name + "," + address + "," + from + "," + to + "," + tripType);
+                writer.newLine();
+                JOptionPane.showMessageDialog(this, "Ticket Booked Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Error saving ticket details!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
+
+    /*public static void main(String[] args) {
+        new BookTicket();
+    }*/
 }

@@ -4,120 +4,80 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-public class NormalCustomerHomepage extends Homepage implements ActionListener {
+public class NormalCustomerHomepage extends Homepage {
+    public NormalCustomerHomepage(String currentUsername) {
+        super(currentUsername);
+        initializeButtons();
+        setVisible(true); // Ensure the frame is visible
+    }
+
     @Override
     protected void initializeButtons() {
-        // Create buttons specific to normal customers
+        // Set layout to null for manual styling
+        buttonPanel.setLayout(null);
+
+        // Book Flight Button
         JButton bookFlightButton = new JButton("Book a Flight");
-        JButton viewBookingDetailsButton = new JButton("View Flight Details");
-        JButton cancelBookingButton = new JButton("Cancel Booking");
-
-        // Style the buttons manually
-        bookFlightButton.setBackground(Color.ORANGE);
-        bookFlightButton.setForeground(Color.WHITE);
+        bookFlightButton.setBounds(100, 100, 250, 50); // Position and size
         bookFlightButton.setFont(new Font("Arial", Font.BOLD, 16));
-        bookFlightButton.setBorder(BorderFactory.createEtchedBorder());
-        bookFlightButton.setFocusPainted(false);
-
-        viewBookingDetailsButton.setBackground(Color.MAGENTA);
-        viewBookingDetailsButton.setForeground(Color.WHITE);
-        viewBookingDetailsButton.setFont(new Font("Arial", Font.BOLD, 16));
-        viewBookingDetailsButton.setBorder(BorderFactory.createEtchedBorder());
-        viewBookingDetailsButton.setFocusPainted(false);
-
-        cancelBookingButton.setBackground(Color.YELLOW);
-        cancelBookingButton.setForeground(Color.BLACK);
-        cancelBookingButton.setFont(new Font("Arial", Font.BOLD, 16));
-        cancelBookingButton.setBorder(BorderFactory.createEtchedBorder());
-        cancelBookingButton.setFocusPainted(false);
-
-        // Add hover effects directly within the method
-        bookFlightButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                bookFlightButton.setBackground(Color.RED); // Change to hover color
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                bookFlightButton.setBackground(Color.ORANGE); // Revert to original color
-            }
-        });
-
-        viewBookingDetailsButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                viewBookingDetailsButton.setBackground(Color.BLUE); // Change to hover color
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                viewBookingDetailsButton.setBackground(Color.MAGENTA); // Revert to original color
-            }
-        });
-
-        cancelBookingButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                cancelBookingButton.setBackground(Color.GRAY); // Change to hover color
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                cancelBookingButton.setBackground(Color.YELLOW); // Revert to original color
-            }
-        });
-
-        // Set button positions to place them in the middle of the available space
-        int yPosition = 400; // Adjust as needed for vertical alignment
-        int buttonWidth = 200;
-        int buttonHeight = 50;
-
-        bookFlightButton.setBounds(100, yPosition, buttonWidth, buttonHeight);
-        viewBookingDetailsButton.setBounds(400, yPosition, buttonWidth, buttonHeight);
-        cancelBookingButton.setBounds(700, yPosition, buttonWidth, buttonHeight);
-
-        // Add action listeners to the buttons
-        bookFlightButton.addActionListener(this);
-        viewBookingDetailsButton.addActionListener(this);
-        cancelBookingButton.addActionListener(this);
-
-        // Add buttons to the button panel
+        bookFlightButton.setBackground(new Color(135, 206, 250)); // Light blue
+        bookFlightButton.setForeground(Color.BLACK);
+        bookFlightButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
+        bookFlightButton.addActionListener(e -> new BookTicket());
         buttonPanel.add(bookFlightButton);
-        buttonPanel.add(viewBookingDetailsButton);
+
+        // Cancel Booking Button
+        JButton cancelBookingButton = new JButton("Cancel Booking");
+        cancelBookingButton.setBounds(400, 100, 250, 50); // Position and size
+        cancelBookingButton.setFont(new Font("Arial", Font.BOLD, 16));
+        cancelBookingButton.setBackground(new Color(240, 128, 128)); // Light coral
+        cancelBookingButton.setForeground(Color.BLACK);
+        cancelBookingButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
+        cancelBookingButton.addActionListener(e -> new CancelTicket());
         buttonPanel.add(cancelBookingButton);
 
-        // Revalidate and repaint to ensure proper rendering
+        // View Profile Button
+        JButton viewProfileButton = new JButton("View Profile");
+        viewProfileButton.setBounds(100, 200, 250, 50); // Position and size
+        viewProfileButton.setFont(new Font("Arial", Font.BOLD, 16));
+        viewProfileButton.setBackground(new Color(152, 251, 152)); // Pale green
+        viewProfileButton.setForeground(Color.BLACK);
+        viewProfileButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
+        viewProfileButton.addActionListener(e -> new ProfileView(currentUsername));
+        buttonPanel.add(viewProfileButton);
+
+        // View Flights Button
+        JButton viewFlightsButton = new JButton("View Flights");
+        viewFlightsButton.setBounds(400, 200, 250, 50); // Position and size
+        viewFlightsButton.setFont(new Font("Arial", Font.BOLD, 16));
+        viewFlightsButton.setBackground(new Color(255, 228, 181)); // Moccasin
+        viewFlightsButton.setForeground(Color.BLACK);
+        viewFlightsButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
+        viewFlightsButton.addActionListener(e -> new ViewFlights());
+        buttonPanel.add(viewFlightsButton);
+
+        // Back Button
+        JButton backButton = new JButton("Back");
+        backButton.setBounds(250, 300, 250, 50); // Position and size at the end
+        backButton.setFont(new Font("Arial", Font.BOLD, 16));
+        backButton.setBackground(new Color(255, 69, 0)); // Red-orange
+        backButton.setForeground(Color.WHITE);
+        backButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
+        backButton.addActionListener(e -> {
+            // Navigate back to login page
+            dispose(); // Close the current frame
+            new Login(); // Assuming LoginPage is the login class
+        });
+        buttonPanel.add(backButton);
+
+        // Refresh the panel to apply changes
         buttonPanel.revalidate();
         buttonPanel.repaint();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Handle button click events
-        String command = e.getActionCommand();
-       /* switch (command) {
-            case "Book a Flight" -> JOptionPane.showMessageDialog(this, "Navigating to flight booking!");
-            case "View Flight Details" -> JOptionPane.showMessageDialog(this, "Displaying booking details!");
-            case "Cancel Booking" -> JOptionPane.showMessageDialog(this, "Cancel booking functionality!");
-            default -> JOptionPane.showMessageDialog(this, "Unknown action: " + command);
-        }*/
-        if(command.equals("Book a Flight")){
-           new BookTicket();
-           //cancelBookingButton.setVisible(true); // Show the toggle button after booking
-          }
-        else if(command.equals("Cancel Booking")){
-           new CancelTicket();
-           //cancelTicketButton.setVisible(true); // Show the toggle button after booking
-          }
-    }
-
-    public NormalCustomerHomepage() {
-        super(); // Call the abstract class constructor
-        setVisible(true); // Ensure the frame is visible
+        //throw new UnsupportedOperationException("Not supported yet.");
     }
 }
-

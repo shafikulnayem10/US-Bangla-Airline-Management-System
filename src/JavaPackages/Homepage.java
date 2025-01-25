@@ -8,8 +8,11 @@ import java.awt.event.ActionEvent;
 public abstract class Homepage extends JFrame {
     protected final JLayeredPane layeredPane; // For layering components
     protected final JPanel buttonPanel; // Transparent panel for buttons
+    protected String currentUsername; // Stores the username of the logged-in user
 
-    public Homepage() {
+    public Homepage(String currentUsername) {
+        this.currentUsername = currentUsername; // Pass the username of the logged-in user
+
         // Frame setup
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("BD");
@@ -107,6 +110,7 @@ public abstract class Homepage extends JFrame {
     // Abstract method for button actions
     public abstract void actionPerformed(ActionEvent e);
 }
+
 
 
 

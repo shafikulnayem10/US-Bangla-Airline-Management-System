@@ -7,6 +7,9 @@ public class Main {
         //new NormalCustomerHomepage();
 
         //new PremiumCustomerHomepage();
-       // new AdminHomepage();
+       //new AdminHomepage();
+      // new BookTicket();
+     // new ViewCustomerDetails();
+     //new AddFlights();
     }
 }

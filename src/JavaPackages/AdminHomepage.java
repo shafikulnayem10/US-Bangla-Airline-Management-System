@@ -4,112 +4,109 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class AdminHomepage extends Homepage implements ActionListener {
+    private JButton bookingFlightsButton;
+    private JButton customerDetailsButton;
+    private JButton addFlightsButton;
+    private JButton cancelFlightsButton;
+    private JButton viewProfileButton;
+    private JButton backButton;
+
+    public AdminHomepage(String currentUsername) {
+        super(currentUsername);
+        setVisible(true); // Ensure the frame is visible
+        // Set the application icon
+        ImageIcon bdFlag = new ImageIcon(getClass().getResource("bdflag.png"));
+        this.setIconImage(bdFlag.getImage());
+    }
+
     @Override
     protected void initializeButtons() {
-        // Create buttons specific to the admin
-        JButton viewFlightsButton = new JButton("View Flight Details");
-        JButton cancelFlightsButton = new JButton("Cancel Flight");
-        JButton viewCustomerDetailsButton = new JButton("View Customer Details");
+        // Manually style each button
 
-        // Style the buttons manually
-        viewFlightsButton.setBackground(Color.BLUE);
-        viewFlightsButton.setForeground(Color.WHITE);
-        viewFlightsButton.setFont(new Font("Arial", Font.BOLD, 16));
-        viewFlightsButton.setBorder(BorderFactory.createEtchedBorder());
-        viewFlightsButton.setFocusPainted(false);
+        // Booking Flights button
+        bookingFlightsButton = new JButton("Booking Flights");
+        bookingFlightsButton.setBounds(50, 300, 200, 50);
+        bookingFlightsButton.setFont(new Font("Arial", Font.BOLD, 16));
+        bookingFlightsButton.setBackground(new Color(135, 206, 250)); // Light blue
+        bookingFlightsButton.setFocusPainted(false);
+        bookingFlightsButton.setActionCommand("Booking Flights");
+        bookingFlightsButton.addActionListener(this);
 
-        cancelFlightsButton.setBackground(Color.RED);
-        cancelFlightsButton.setForeground(Color.WHITE);
+        // Customer Details button
+        customerDetailsButton = new JButton("Customer Details");
+        customerDetailsButton.setBounds(300, 300, 200, 50);
+        customerDetailsButton.setFont(new Font("Arial", Font.BOLD, 16));
+        customerDetailsButton.setBackground(new Color(144, 238, 144)); // Light green
+        customerDetailsButton.setFocusPainted(false);
+        customerDetailsButton.setActionCommand("Customer Details");
+        customerDetailsButton.addActionListener(this);
+
+        // Add Flights button
+        addFlightsButton = new JButton("Add Flights");
+        addFlightsButton.setBounds(50, 400, 200, 50);
+        addFlightsButton.setFont(new Font("Arial", Font.BOLD, 16));
+        addFlightsButton.setBackground(new Color(255, 182, 193)); // Light pink
+        addFlightsButton.setFocusPainted(false);
+        addFlightsButton.setActionCommand("Add Flights");
+        addFlightsButton.addActionListener(this);
+
+        // Cancel Flights button
+        cancelFlightsButton = new JButton("Cancel Flights");
+        cancelFlightsButton.setBounds(300, 400, 200, 50);
         cancelFlightsButton.setFont(new Font("Arial", Font.BOLD, 16));
-        cancelFlightsButton.setBorder(BorderFactory.createEtchedBorder());
+        cancelFlightsButton.setBackground(new Color(255, 160, 122)); // Salmon
         cancelFlightsButton.setFocusPainted(false);
-
-        viewCustomerDetailsButton.setBackground(Color.GREEN);
-        viewCustomerDetailsButton.setForeground(Color.WHITE);
-        viewCustomerDetailsButton.setFont(new Font("Arial", Font.BOLD, 16));
-        viewCustomerDetailsButton.setBorder(BorderFactory.createEtchedBorder());
-        viewCustomerDetailsButton.setFocusPainted(false);
-
-        // Add hover effects directly within the method
-        viewFlightsButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                viewFlightsButton.setBackground(Color.CYAN); // Change to hover color
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                viewFlightsButton.setBackground(Color.BLUE); // Revert to original color
-            }
-        });
-
-        cancelFlightsButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                cancelFlightsButton.setBackground(Color.PINK); // Change to hover color
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                cancelFlightsButton.setBackground(Color.RED); // Revert to original color
-            }
-        });
-
-        viewCustomerDetailsButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                viewCustomerDetailsButton.setBackground(Color.LIGHT_GRAY); // Change to hover color
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                viewCustomerDetailsButton.setBackground(Color.GREEN); // Revert to original color
-            }
-        });
-
-        // Set button positions to place them in the middle of the available space
-        int yPosition = 400; // Adjust as needed for vertical alignment
-        int buttonWidth = 200;
-        int buttonHeight = 50;
-
-        viewFlightsButton.setBounds(100, yPosition, buttonWidth, buttonHeight);
-        cancelFlightsButton.setBounds(400, yPosition, buttonWidth, buttonHeight);
-        viewCustomerDetailsButton.setBounds(700, yPosition, buttonWidth, buttonHeight);
-
-        // Add action listeners to the buttons
-        viewFlightsButton.addActionListener(this);
+        cancelFlightsButton.setActionCommand("Cancel Flights");
         cancelFlightsButton.addActionListener(this);
-        viewCustomerDetailsButton.addActionListener(this);
 
-        // Add buttons to the button panel
-        buttonPanel.add(viewFlightsButton);
+        // View Profile button
+        viewProfileButton = new JButton("View Profile");
+        viewProfileButton.setBounds(550, 400, 200, 50);
+        viewProfileButton.setFont(new Font("Arial", Font.BOLD, 16));
+        viewProfileButton.setBackground(new Color(240, 230, 140)); // Light yellow
+        viewProfileButton.setFocusPainted(false);
+        viewProfileButton.setActionCommand("View Profile");
+        viewProfileButton.addActionListener(this);
+
+        // Back button
+        backButton = new JButton("Back");
+        backButton.setBounds(300, 500, 200, 50);
+        backButton.setFont(new Font("Arial", Font.BOLD, 16));
+        backButton.setBackground(new Color(255, 69, 0)); // Red-orange
+        backButton.setForeground(Color.WHITE); // White text
+        backButton.setFocusPainted(false);
+        backButton.setActionCommand("Back");
+        backButton.addActionListener(this);
+
+        // Add buttons to the panel
+        buttonPanel.add(bookingFlightsButton);
+        buttonPanel.add(customerDetailsButton);
+        buttonPanel.add(addFlightsButton);
         buttonPanel.add(cancelFlightsButton);
-        buttonPanel.add(viewCustomerDetailsButton);
+        buttonPanel.add(viewProfileButton);
+        buttonPanel.add(backButton);
 
-        // Revalidate and repaint to ensure proper rendering
+        // Refresh panel
         buttonPanel.revalidate();
         buttonPanel.repaint();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Handle button click events
-        String command = e.getActionCommand();
+        String command = e.getActionCommand(); // Get the action command from the button
         switch (command) {
-            case "View Flight Details" -> JOptionPane.showMessageDialog(this, "Displaying flight details!");
-            case "Cancel Flight" -> JOptionPane.showMessageDialog(this, "Cancel flight functionality!");
-            case "View Customer Details" -> JOptionPane.showMessageDialog(this, "Displaying customer details!");
+            case "Booking Flights" -> new BookingFlights(); // Open Booking Flights page
+            case "Customer Details" -> new ViewCustomerDetails(); // Open Customer Details page
+            case "Add Flights" -> new AddFlights(); // Open Add Flights page
+            case "Cancel Flights" -> new CancelFlights(); // Open Cancel Flights page
+            case "View Profile" -> new ProfileView(currentUsername); // Open Profile View page
+            case "Back" -> {
+                new Login(); // Return to login page
+                dispose(); // Close the admin homepage
+            }
             default -> JOptionPane.showMessageDialog(this, "Unknown action: " + command);
         }
     }
-
-    public AdminHomepage() {
-        super(); // Call the abstract class constructor
-        setVisible(true); // Ensure the frame is visible
-    }
 }
-

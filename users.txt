@@ -1,7 +1,9 @@
-thenameisnayeem,nayeem@10,Admin,nayeem
+thenameisnayeem,nayeem@10,Admin,nayeem10
 thenameistajmun,tajmun@10,Normal Customer,tajmun
 thenameishridoy,hridoy@10,Normal Customer,hridoy
 thenameisjhorna,jhorna@10,Normal Customer,jhorna
 shafikul10,shafikul@10,Admin,shafikul
 rasel10,rasel@10,Premium Customer,rasel
 thenameistaslima,taslima@10,Normal Customer,taslima
+thenameisayman,ayman@10,Admin,ayman
+nayeem24,nayeem24,Admin,nayeem

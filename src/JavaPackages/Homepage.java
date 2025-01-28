@@ -22,7 +22,7 @@ public abstract class Homepage extends JFrame {
         // Set the application icon
         ImageIcon bdFlag = new ImageIcon(getClass().getResource("bdflag.png"));
         this.setIconImage(bdFlag.getImage());
-
+      //frame section ends
         // Add header section
         addHeader();
 

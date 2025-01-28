@@ -7,14 +7,14 @@ import java.awt.event.ActionListener;
 import java.io.*;
 
 public class CancelTicket extends JFrame implements ActionListener {
-    private JTextField flightCodeField, addressField;
+    private JTextField flightCodeField, addressField, nameField;
     private JButton cancelButton;
 
     public CancelTicket() {
         // Frame setup
         setTitle("Cancel Ticket");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(400, 300);
+        setSize(400, 350);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
 
@@ -25,7 +25,7 @@ public class CancelTicket extends JFrame implements ActionListener {
         add(headerLabel, BorderLayout.NORTH);
 
         // Form Panel
-        JPanel formPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+        JPanel formPanel = new JPanel(new GridLayout(3, 2, 10, 10));
         Font labelFont = new Font("Arial", Font.BOLD, 14);
 
         JLabel flightCodeLabel = new JLabel("Flight Code:");
@@ -36,6 +36,15 @@ public class CancelTicket extends JFrame implements ActionListener {
         flightCodeField = new JTextField();
         flightCodeField.setBackground(Color.LIGHT_GRAY);
         formPanel.add(flightCodeField);
+
+        JLabel nameLabel = new JLabel("Name:");
+        nameLabel.setFont(labelFont);
+        nameLabel.setForeground(Color.GREEN);
+        formPanel.add(nameLabel);
+
+        nameField = new JTextField();
+        nameField.setBackground(Color.PINK);
+        formPanel.add(nameField);
 
         JLabel addressLabel = new JLabel("Address:");
         addressLabel.setFont(labelFont);
@@ -63,16 +72,39 @@ public class CancelTicket extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == cancelButton) {
             String flightCodeToCancel = flightCodeField.getText().trim();
+            String nameToMatch = nameField.getText().trim();
             String addressToMatch = addressField.getText().trim();
-            boolean ticketFound = false;
 
-            if (flightCodeToCancel.isEmpty() || addressToMatch.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Both fields must be filled!", "Error", JOptionPane.ERROR_MESSAGE);
+            if (flightCodeToCancel.isEmpty() || nameToMatch.isEmpty() || addressToMatch.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "All fields must be filled!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
+            // Step 1: Verify if the flight code exists in addandcancelflight.txt
+            boolean isFlightValid = false;
+            try (BufferedReader flightReader = new BufferedReader(new FileReader("addandcancelflight.txt"))) {
+                String line;
+                while ((line = flightReader.readLine()) != null) {
+                    String[] flightData = line.split(",");
+                    if (flightData[0].equals(flightCodeToCancel)) {
+                        isFlightValid = true;
+                        break;
+                    }
+                }
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Error verifying flight code!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!isFlightValid) {
+                JOptionPane.showMessageDialog(this, "Invalid flight code!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Step 2: Cancel the ticket from bookflightList.txt
             File inputFile = new File("bookflightList.txt");
             File tempFile = new File("tempFile.txt");
+            boolean ticketFound = false;
 
             try (
                 BufferedReader reader = new BufferedReader(new FileReader(inputFile));
@@ -82,7 +114,8 @@ public class CancelTicket extends JFrame implements ActionListener {
 
                 while ((currentLine = reader.readLine()) != null) {
                     String[] ticketData = currentLine.split(",");
-                    if (ticketData.length > 1 && ticketData[0].equals(flightCodeToCancel) && ticketData[2].equals(addressToMatch)) {
+                    if (ticketData.length > 1 && ticketData[0].equals(flightCodeToCancel)
+                            && ticketData[1].equals(nameToMatch) && ticketData[2].equals(addressToMatch)) {
                         ticketFound = true; // Found the ticket to cancel
                         continue; // Skip writing this line
                     }
@@ -97,6 +130,7 @@ public class CancelTicket extends JFrame implements ActionListener {
             if (ticketFound) {
                 if (inputFile.delete() && tempFile.renameTo(inputFile)) {
                     JOptionPane.showMessageDialog(this, "Ticket Cancelled Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Error updating file!", "Error", JOptionPane.ERROR_MESSAGE);
                 }

@@ -3,10 +3,7 @@ package JavaPackages;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import javax.swing.*;
 
 public class BookTicket extends JFrame implements ActionListener {
@@ -112,6 +109,27 @@ public class BookTicket extends JFrame implements ActionListener {
                 return;
             }
 
+            // Verify if the flight code exists in addandcancelflight.txt
+            boolean isFlightValid = false;
+            try (BufferedReader flightReader = new BufferedReader(new FileReader("addandcancelflight.txt"))) {
+                String line;
+                while ((line = flightReader.readLine()) != null) {
+                    String[] flightData = line.split(",");
+                    if (flightData[0].equals(flightCode)) {
+                        isFlightValid = true;
+                        break;
+                    }
+                }
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Error verifying flight code!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!isFlightValid) {
+                JOptionPane.showMessageDialog(this, "Invalid flight code!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             // Create the file if it doesn't exist
             File file = new File("bookflightList.txt");
             try {
@@ -129,13 +147,14 @@ public class BookTicket extends JFrame implements ActionListener {
                 writer.write(flightCode + "," + name + "," + address + "," + from + "," + to + "," + tripType);
                 writer.newLine();
                 JOptionPane.showMessageDialog(this, "Ticket Booked Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "Error saving ticket details!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
 
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         new BookTicket();
-    }*/
+    }
 }

@@ -3,10 +3,6 @@ package JavaPackages;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Registration extends JFrame {
     protected JTextField nameField, usernameField;
@@ -98,26 +94,15 @@ public class Registration extends JFrame {
             return;
         }
 
-        File file = new File("users.txt");
-        try {
-            if (!file.exists() && !file.createNewFile()) {
-                JOptionPane.showMessageDialog(this, "Failed to create the file!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Error creating file!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        // Create a User object
+        User user = new User(name, username, password, status);
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
-            writer.write(username + "," + password + "," + status + "," + name);
-            writer.newLine();
-            JOptionPane.showMessageDialog(this, "Signup Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            dispose(); // Close registration window
-            new Login(); // Open login page
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Error saving user details!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        // Save the user to the file
+        UserRepository.saveUser(user);
+        
+
+        dispose(); // Close registration window
+        new Login(); // Open login page
     }
 
     public static void main(String[] args) {

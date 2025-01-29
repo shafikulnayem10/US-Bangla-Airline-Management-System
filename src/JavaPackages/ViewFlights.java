@@ -39,7 +39,7 @@ public class ViewFlights extends JFrame {
         add(scrollPane, BorderLayout.CENTER);
 
         // Load data from addandcancelflight.txt
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\USER\\OneDrive - American International University-Bangladesh\\Desktop\\AIUB\\FALL24-25\\OOP1\\My OOP1 Code\\FINAL\\javacode\\FINAL\\OOP-1 Project\\US-Bangla Airline Management System\\addandcancelflight.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("addandcancelflight.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] flightData = line.split(",");

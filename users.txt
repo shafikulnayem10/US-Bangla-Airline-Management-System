@@ -7,3 +7,4 @@ rasel10,rasel@10,Premium Customer,rasel
 thenameistaslima,taslima@10,Normal Customer,taslima
 thenameisayman,ayman@10,Admin,ayman
 nayeem24,nayeem24,Admin,nayeem
+admin,admin,Admin,admin

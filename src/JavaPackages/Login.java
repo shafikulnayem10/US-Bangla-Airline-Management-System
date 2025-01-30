@@ -11,8 +11,10 @@ import java.io.IOException;
 public class Login extends JFrame implements ActionListener {
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private JComboBox statusComboBox;
+    private JComboBox<String> statusComboBox;
     private JButton loginButton, signupButton, changePasswordButton, closeButton;
+    private JLabel titleLabel, usernameLabel, passwordLabel, statusLabel;
+    private JPanel formPanel, buttonPanel;
 
     public Login() {
         // Set frame properties
@@ -20,111 +22,104 @@ public class Login extends JFrame implements ActionListener {
         setSize(600, 500);
         setLocationRelativeTo(null); // Center the frame
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-          // Set the application icon
+        setLayout(new BorderLayout());
+
+        // Set the application icon
         ImageIcon bdFlag = new ImageIcon(getClass().getResource("bdflag.png"));
         this.setIconImage(bdFlag.getImage());
 
         // Load the background image
-      ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("log in page bg.jpg"));
+        ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("log in page bg.jpg"));
+        JLabel backgroundLabel = new JLabel(backgroundIcon);
+        backgroundLabel.setLayout(new BorderLayout());
 
+        // Title Label
+        titleLabel = new JLabel("Login", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
+        titleLabel.setOpaque(true);
+        titleLabel.setBackground(new Color(72, 61, 139)); // Dark Slate Blue
+        titleLabel.setForeground(Color.WHITE);
+        backgroundLabel.add(titleLabel, BorderLayout.NORTH);
 
+        // Form Panel
+        formPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        formPanel.setOpaque(false);
 
-
-        // Create a custom panel for the background
-        JPanel backgroundPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.drawImage(backgroundIcon.getImage(), 0, 0, getWidth(), getHeight(), this);
-            }
-        };
-        backgroundPanel.setLayout(null); // Use absolute layout for components
-        setContentPane(backgroundPanel);
-
-        // Create and style components manually
-        JLabel statusLabel = new JLabel("Log in as:");
-        statusLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        // Labels (Now all white)
+        statusLabel = new JLabel("Log in as:");
+        statusLabel.setFont(new Font("Arial", Font.BOLD, 14));
         statusLabel.setForeground(Color.WHITE);
-        statusLabel.setBounds(50, 50, 150, 30);
-        backgroundPanel.add(statusLabel);
+        formPanel.add(statusLabel);
 
-        String statuses[] = {"Admin", "Normal Customer", "Premium Customer"};
-        statusComboBox = new JComboBox(statuses);
+        String[] statuses = {"Admin", "Normal Customer", "Premium Customer"};
+        statusComboBox = new JComboBox<>(statuses);
         statusComboBox.setFont(new Font("Arial", Font.PLAIN, 14));
-        statusComboBox.setBackground(Color.WHITE);
-        statusComboBox.setForeground(Color.DARK_GRAY);
-        statusComboBox.setBounds(200, 50, 300, 30);
-        backgroundPanel.add(statusComboBox);
+        formPanel.add(statusComboBox);
 
-        JLabel usernameLabel = new JLabel("Username:");
-        usernameLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        usernameLabel = new JLabel("Username:");
+        usernameLabel.setFont(new Font("Arial", Font.BOLD, 14));
         usernameLabel.setForeground(Color.WHITE);
-        usernameLabel.setBounds(50, 100, 150, 30);
-        backgroundPanel.add(usernameLabel);
+        formPanel.add(usernameLabel);
 
         usernameField = new JTextField();
-        usernameField.setFont(new Font("Arial", Font.PLAIN, 14));
-        usernameField.setBackground(Color.WHITE);
-        usernameField.setForeground(Color.DARK_GRAY);
+        usernameField.setFont(new Font("Arial", Font.PLAIN, 18));
         usernameField.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
-        usernameField.setBounds(200, 100, 300, 30);
-        backgroundPanel.add(usernameField);
+        formPanel.add(usernameField);
 
-        JLabel passwordLabel = new JLabel("Password:");
-        passwordLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        passwordLabel = new JLabel("Password:");
+        passwordLabel.setFont(new Font("Arial", Font.BOLD, 19));
         passwordLabel.setForeground(Color.WHITE);
-        passwordLabel.setBounds(50, 150, 150, 30);
-        backgroundPanel.add(passwordLabel);
+        formPanel.add(passwordLabel);
 
         passwordField = new JPasswordField();
-        passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
-        passwordField.setBackground(Color.WHITE);
-        passwordField.setForeground(Color.DARK_GRAY);
+        passwordField.setFont(new Font("Arial", Font.PLAIN, 10));
         passwordField.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
-        passwordField.setBounds(200, 150, 300, 30);
-        backgroundPanel.add(passwordField);
+        formPanel.add(passwordField);
+
+        backgroundLabel.add(formPanel, BorderLayout.CENTER);
+
+        // Button Panel
+        buttonPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        buttonPanel.setOpaque(false);
 
         loginButton = new JButton("Log In");
-        loginButton.setFont(new Font("Arial", Font.BOLD, 16));
+        loginButton.setFont(new Font("Arial", Font.BOLD, 14));
         loginButton.setBackground(new Color(72, 209, 204)); // Light turquoise
         loginButton.setForeground(Color.WHITE);
         loginButton.setFocusPainted(false);
-        loginButton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
-        loginButton.setBounds(50, 220, 200, 40);
         loginButton.addActionListener(this);
-        backgroundPanel.add(loginButton);
+        buttonPanel.add(loginButton);
 
         signupButton = new JButton("Sign Up");
-        signupButton.setFont(new Font("Arial", Font.BOLD, 16));
+        signupButton.setFont(new Font("Arial", Font.BOLD, 14));
         signupButton.setBackground(new Color(72, 209, 204)); // Light turquoise
         signupButton.setForeground(Color.WHITE);
         signupButton.setFocusPainted(false);
-        signupButton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
-        signupButton.setBounds(300, 220, 200, 40);
         signupButton.addActionListener(this);
-        backgroundPanel.add(signupButton);
+        buttonPanel.add(signupButton);
 
         changePasswordButton = new JButton("Change Password");
-        changePasswordButton.setFont(new Font("Arial", Font.BOLD, 16));
-        changePasswordButton.setBackground(new Color(72, 209, 204)); // Light turquoise
+        changePasswordButton.setFont(new Font("Arial", Font.BOLD, 14));
+        changePasswordButton.setBackground(new Color(72, 209, 204));
         changePasswordButton.setForeground(Color.WHITE);
         changePasswordButton.setFocusPainted(false);
-        changePasswordButton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
-        changePasswordButton.setBounds(50, 290, 200, 40);
         changePasswordButton.addActionListener(this);
-        backgroundPanel.add(changePasswordButton);
+        buttonPanel.add(changePasswordButton);
 
         closeButton = new JButton("Close");
-        closeButton.setFont(new Font("Arial", Font.BOLD, 16));
+        closeButton.setFont(new Font("Arial", Font.BOLD, 14));
         closeButton.setBackground(new Color(255, 69, 58)); // Light red for close
         closeButton.setForeground(Color.WHITE);
         closeButton.setFocusPainted(false);
-        closeButton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
-        closeButton.setBounds(300, 290, 200, 40);
         closeButton.addActionListener(e -> System.exit(0)); // Exit program
-        backgroundPanel.add(closeButton);
+        buttonPanel.add(closeButton);
 
-        // Make the frame visible
+        backgroundLabel.add(buttonPanel, BorderLayout.SOUTH);
+
+        // Add backgroundLabel as content pane
+        setContentPane(backgroundLabel);
         setVisible(true);
     }
 

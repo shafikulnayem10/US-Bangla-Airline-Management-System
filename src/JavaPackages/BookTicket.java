@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class BookTicket extends JFrame implements ActionListener {
     protected JTextField nameField, addressField, flightCodeField;
-    protected JComboBox<String> fromComboBox, toComboBox, tripTypeComboBox;
+    protected JComboBox fromComboBox, toComboBox, tripTypeComboBox;
     protected JButton bookButton;
 
     public BookTicket() {
@@ -37,7 +37,8 @@ public class BookTicket extends JFrame implements ActionListener {
         fromLabel.setFont(labelFont);
         fromLabel.setForeground(labelColor);
         formPanel.add(fromLabel);
-        fromComboBox = new JComboBox<>(new String[]{"Dhaka", "Chittagong", "Sylhet"});
+        String fromString []={"Dhaka", "Chittagong", "Sylhet"};
+        fromComboBox = new JComboBox (fromString);
         fromComboBox.setBackground(Color.CYAN);
         formPanel.add(fromComboBox);
 
@@ -45,7 +46,8 @@ public class BookTicket extends JFrame implements ActionListener {
         toLabel.setFont(labelFont);
         toLabel.setForeground(labelColor);
         formPanel.add(toLabel);
-        toComboBox = new JComboBox<>(new String[]{"Chittagong", "Sylhet", "Dhaka"});
+        String toString[]={"Chittagong", "Sylhet", "Dhaka"};
+        toComboBox = new JComboBox(toString);
         toComboBox.setBackground(Color.ORANGE);
         formPanel.add(toComboBox);
 
@@ -53,7 +55,8 @@ public class BookTicket extends JFrame implements ActionListener {
         tripTypeLabel.setFont(labelFont);
         tripTypeLabel.setForeground(labelColor);
         formPanel.add(tripTypeLabel);
-        tripTypeComboBox = new JComboBox<>(new String[]{"One Way", "Round Trip"});
+        String tripType[]={"One Way", "Round Trip"};
+        tripTypeComboBox = new JComboBox(tripType);
         tripTypeComboBox.setBackground(Color.CYAN);
         formPanel.add(tripTypeComboBox);
 
@@ -130,17 +133,9 @@ public class BookTicket extends JFrame implements ActionListener {
                 return;
             }
 
-            // Create the file if it doesn't exist
+            
             File file = new File("bookflightList.txt");
-            try {
-                if (!file.exists() && !file.createNewFile()) {
-                    JOptionPane.showMessageDialog(this, "Failed to create the file!", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "Error creating file!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+           
 
             // Write booking details to the file
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {

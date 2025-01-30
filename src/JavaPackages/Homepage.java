@@ -9,7 +9,7 @@ public abstract class Homepage extends JFrame {
     protected final JLayeredPane layeredPane; // For layering components
     protected final JPanel buttonPanel; // Transparent panel for buttons
     protected String currentUsername; // Stores the username of the logged-in user
-
+   protected  JPanel headerPanel;
     public Homepage(String currentUsername) {
         this.currentUsername = currentUsername; // Pass the username of the logged-in user
 
@@ -65,7 +65,7 @@ public abstract class Homepage extends JFrame {
     // Method to add the header
     private void addHeader() {
         // Header panel setup
-        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel = new JPanel(new BorderLayout());
         headerPanel.setBackground(Color.WHITE);
         headerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         Border border = BorderFactory.createLineBorder(Color.BLUE, 3);
@@ -107,7 +107,7 @@ public abstract class Homepage extends JFrame {
         this.add(headerPanel, BorderLayout.NORTH);
     }
 
-    // Abstract method for button actions
+    //Abstract method for button actions
     public abstract void actionPerformed(ActionEvent e);
 }
 

@@ -47,7 +47,7 @@ public class ViewFlights extends JFrame {
                     tableModel.addRow(flightData);
                 }
             }
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error loading flight details!", "Error", JOptionPane.ERROR_MESSAGE);
         }
 

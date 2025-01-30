@@ -6,5 +6,7 @@ shafikul10,shafikul@10,Admin,shafikul
 rasel10,rasel@10,Premium Customer,rasel
 thenameistaslima,taslima@10,Normal Customer,taslima
 thenameisayman,ayman@10,Admin,ayman
-nayeem24,nayeem24,Admin,nayeem
+nayeem24,nayeem@10,Admin,nayeem
 admin,admin,Admin,admin
+ayman10,ayman10,Admin,ayman ahmed
+hridoy24,hridoy24,Admin,hridoy islam

@@ -11,7 +11,7 @@ public class UserRepository {
 
     public static void saveUser(User user) {
         File file = new File("users.txt");
-        try {
+       /* try {
             if (!file.exists() && !file.createNewFile()) {
                 JOptionPane.showMessageDialog(null, "Failed to create the file!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -19,12 +19,12 @@ public class UserRepository {
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error creating file!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
-        }
+        }*/
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
             writer.write(user.toString());
             writer.newLine();
-            JOptionPane.showMessageDialog(null, "Signup Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "Signup Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error saving user details!", "Error", JOptionPane.ERROR_MESSAGE);
         }

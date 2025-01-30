@@ -3,87 +3,121 @@ package JavaPackages;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
-public class Registration extends JFrame {
-    protected JTextField nameField, usernameField;
-    protected JPasswordField passwordField;
-    protected JComboBox<String> statusComboBox;
-    protected JButton signupButton;
+public class Registration extends JFrame implements ActionListener {
+    private JTextField nameField, usernameField;
+    private JPasswordField passwordField;
+    private JComboBox<String> statusComboBox;
+    private JButton signupButton, backButton;
+    private JLabel titleLabel, nameLabel, usernameLabel, passwordLabel, statusLabel;
+    private JPanel formPanel, buttonPanel;
 
     public Registration() {
         // Frame setup
         setTitle("User Registration");
-        setSize(500, 400);
+        setSize(500, 450);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLayout(new GridLayout(5, 2, 10, 10));
+        setLayout(new BorderLayout());
+        getContentPane().setBackground(new Color(224, 255, 255)); // Light Cyan background
 
-        // Customize background color of the main frame
-        getContentPane().setBackground(Color.cyan); // Light blue background
+        // **Title Panel**
+        titleLabel = new JLabel("User Registration", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
+        titleLabel.setOpaque(true);
+        titleLabel.setBackground(new Color(0, 102, 204)); // Blue
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        add(titleLabel, BorderLayout.NORTH);
 
-        // Components
-        JLabel nameLabel = new JLabel("Name:");
+        // **Form Panel (GridLayout)**
+        formPanel = new JPanel(new GridLayout(4, 2, 10, 10));
+        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        formPanel.setBackground(new Color(224, 255, 255)); // Light Cyan
+
+        // **Labels**
+        nameLabel = new JLabel("Name:");
         nameLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        nameLabel.setForeground(new Color(25, 25, 112)); // Navy color
+        nameLabel.setForeground(Color.BLACK);
+        formPanel.add(nameLabel);
 
         nameField = new JTextField();
         nameField.setFont(new Font("Arial", Font.PLAIN, 14));
-        nameField.setBackground(new Color(245, 245, 245)); // Light gray background
-        nameField.setBorder(BorderFactory.createLineBorder(new Color(169, 169, 169))); // Gray border
+        formPanel.add(nameField);
 
-        JLabel usernameLabel = new JLabel("Username:");
+        usernameLabel = new JLabel("Username:");
         usernameLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        usernameLabel.setForeground(new Color(25, 25, 112));
+        usernameLabel.setForeground(Color.BLACK);
+        formPanel.add(usernameLabel);
 
         usernameField = new JTextField();
         usernameField.setFont(new Font("Arial", Font.PLAIN, 14));
-        usernameField.setBackground(new Color(245, 245, 245));
-        usernameField.setBorder(BorderFactory.createLineBorder(new Color(169, 169, 169)));
+        formPanel.add(usernameField);
 
-        JLabel passwordLabel = new JLabel("Password:");
+        passwordLabel = new JLabel("Password:");
         passwordLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        passwordLabel.setForeground(new Color(25, 25, 112));
+        passwordLabel.setForeground(Color.BLACK);
+        formPanel.add(passwordLabel);
 
         passwordField = new JPasswordField();
         passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
-        passwordField.setBackground(new Color(245, 245, 245));
-        passwordField.setBorder(BorderFactory.createLineBorder(new Color(169, 169, 169)));
+        formPanel.add(passwordField);
 
-        JLabel statusLabel = new JLabel("Status:");
+        statusLabel = new JLabel("Status:");
         statusLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        statusLabel.setForeground(new Color(25, 25, 112));
+        statusLabel.setForeground(Color.BLACK);
+        formPanel.add(statusLabel);
 
-        statusComboBox = new JComboBox<>(new String[]{"Admin", "Normal Customer", "Premium Customer"});
+        String[] statuses = {"Admin", "Normal Customer", "Premium Customer"};
+        statusComboBox = new JComboBox<>(statuses);
         statusComboBox.setFont(new Font("Arial", Font.PLAIN, 14));
-        statusComboBox.setBackground(new Color(245, 245, 245));
-        statusComboBox.setBorder(BorderFactory.createLineBorder(new Color(169, 169, 169)));
+        formPanel.add(statusComboBox);
 
-        // Sign Up Button with Manual Styling
+        add(formPanel, BorderLayout.CENTER);
+
+        // **Button Panel**
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        buttonPanel.setBackground(new Color(224, 255, 255));
+
         signupButton = new JButton("Sign Up");
-        signupButton.setBackground(new Color(34, 139, 34)); // Green background
-        signupButton.setForeground(Color.WHITE); // White text
-        signupButton.setFont(new Font("Arial", Font.BOLD, 16)); // Bold font, size 16
-        signupButton.setFocusPainted(false); // Remove focus border
-        signupButton.setBorder(BorderFactory.createLineBorder(new Color(0, 100, 0), 2)); // Dark green border
-        signupButton.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Change cursor to hand on hover
-        signupButton.addActionListener(this::handleSignup);
+        signupButton.setFont(new Font("Arial", Font.BOLD, 16));
+        signupButton.setBackground(new Color(34, 139, 34)); // Green
+        signupButton.setForeground(Color.WHITE);
+        signupButton.setBorder(BorderFactory.createLineBorder(new Color(0, 100, 0), 2)); // Dark green
+        signupButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        signupButton.addActionListener(this);
+        buttonPanel.add(signupButton);
 
-        // Adding components to the frame
-        add(nameLabel);
-        add(nameField);
-        add(usernameLabel);
-        add(usernameField);
-        add(passwordLabel);
-        add(passwordField);
-        add(statusLabel);
-        add(statusComboBox);
-        add(new JLabel()); // Empty space
-        add(signupButton);
+        backButton = new JButton("Back");
+        backButton.setFont(new Font("Arial", Font.BOLD, 16));
+        backButton.setBackground(new Color(255, 69, 0)); // Red-orange
+        backButton.setForeground(Color.WHITE);
+        backButton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        backButton.addActionListener(this);
+        buttonPanel.add(backButton);
+
+        add(buttonPanel, BorderLayout.SOUTH);
 
         setVisible(true);
     }
 
-    private void handleSignup(ActionEvent e) {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == signupButton) {
+            handleSignup();
+        } else if (e.getSource() == backButton) {
+            dispose();
+            new Login(); // Return to Login Page
+        }
+    }
+
+    private void handleSignup() {
         String name = nameField.getText().trim();
         String username = usernameField.getText().trim();
         String password = new String(passwordField.getPassword()).trim();
@@ -94,15 +128,17 @@ public class Registration extends JFrame {
             return;
         }
 
-        // Create a User object
-        User user = new User(name, username, password, status);
-
-        // Save the user to the file
-        UserRepository.saveUser(user);
-        
-
-        dispose(); // Close registration window
-        new Login(); // Open login page
+        // Save User Data
+        File file = new File("users.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
+            writer.write(username + "," + password + "," + status + "," + name);
+            writer.newLine();
+            JOptionPane.showMessageDialog(this, "Signup Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+            new Login(); // Open login page
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error saving user data!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public static void main(String[] args) {

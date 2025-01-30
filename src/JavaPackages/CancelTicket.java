@@ -8,62 +8,85 @@ import java.io.*;
 
 public class CancelTicket extends JFrame implements ActionListener {
     private JTextField flightCodeField, addressField, nameField;
-    private JButton cancelButton;
+    private JButton cancelButton, backButton;
+    private JLabel titleLabel, flightCodeLabel, nameLabel, addressLabel;
+    private JPanel formPanel, buttonPanel;
 
     public CancelTicket() {
-        // Frame setup
+        // **Frame setup**
         setTitle("Cancel Ticket");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(400, 350);
+        setSize(500, 350);
         setLocationRelativeTo(null);
-        setLayout(new BorderLayout(10, 10));
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(new BorderLayout());
 
-        // Header
-        JLabel headerLabel = new JLabel("Cancel Your Ticket", JLabel.CENTER);
-        headerLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        headerLabel.setForeground(Color.RED);
-        add(headerLabel, BorderLayout.NORTH);
+        // **Title Label**
+        titleLabel = new JLabel("Cancel Your Ticket", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
+        titleLabel.setOpaque(true);
+        titleLabel.setBackground(new Color(0, 102, 204)); // Blue
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        add(titleLabel, BorderLayout.NORTH);
 
-        // Form Panel
-        JPanel formPanel = new JPanel(new GridLayout(3, 2, 10, 10));
-        Font labelFont = new Font("Arial", Font.BOLD, 14);
+        // **Form Panel (GridLayout)**
+        formPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        formPanel.setBackground(new Color(240, 248, 255)); // Light blue
 
-        JLabel flightCodeLabel = new JLabel("Flight Code:");
-        flightCodeLabel.setFont(labelFont);
-        flightCodeLabel.setForeground(Color.GREEN);
+        // **Labels & Input Fields**
+        flightCodeLabel = new JLabel("Flight Code:");
+        flightCodeLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        flightCodeLabel.setForeground(Color.BLACK);
         formPanel.add(flightCodeLabel);
 
         flightCodeField = new JTextField();
-        flightCodeField.setBackground(Color.LIGHT_GRAY);
+        flightCodeField.setFont(new Font("Arial", Font.PLAIN, 14));
         formPanel.add(flightCodeField);
 
-        JLabel nameLabel = new JLabel("Name:");
-        nameLabel.setFont(labelFont);
-        nameLabel.setForeground(Color.GREEN);
+        nameLabel = new JLabel("Name:");
+        nameLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        nameLabel.setForeground(Color.BLACK);
         formPanel.add(nameLabel);
 
         nameField = new JTextField();
-        nameField.setBackground(Color.PINK);
+        nameField.setFont(new Font("Arial", Font.PLAIN, 14));
         formPanel.add(nameField);
 
-        JLabel addressLabel = new JLabel("Address:");
-        addressLabel.setFont(labelFont);
-        addressLabel.setForeground(Color.GREEN);
+        addressLabel = new JLabel("Address:");
+        addressLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        addressLabel.setForeground(Color.BLACK);
         formPanel.add(addressLabel);
 
         addressField = new JTextField();
-        addressField.setBackground(Color.ORANGE);
+        addressField.setFont(new Font("Arial", Font.PLAIN, 14));
         formPanel.add(addressField);
 
         add(formPanel, BorderLayout.CENTER);
 
-        // Cancel Button
+        // **Button Panel**
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        buttonPanel.setBackground(new Color(240, 248, 255));
+
         cancelButton = new JButton("Cancel Ticket");
         cancelButton.setFont(new Font("Arial", Font.BOLD, 16));
         cancelButton.setBackground(Color.RED);
         cancelButton.setForeground(Color.WHITE);
+        cancelButton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
+        cancelButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         cancelButton.addActionListener(this);
-        add(cancelButton, BorderLayout.SOUTH);
+        buttonPanel.add(cancelButton);
+
+        backButton = new JButton("Back");
+        backButton.setFont(new Font("Arial", Font.BOLD, 16));
+        backButton.setBackground(new Color(255, 69, 0)); // Red-orange
+        backButton.setForeground(Color.WHITE);
+        backButton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        backButton.addActionListener(this);
+        buttonPanel.add(backButton);
+
+        add(buttonPanel, BorderLayout.SOUTH);
 
         setVisible(true);
     }
@@ -71,73 +94,80 @@ public class CancelTicket extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == cancelButton) {
-            String flightCodeToCancel = flightCodeField.getText().trim();
-            String nameToMatch = nameField.getText().trim();
-            String addressToMatch = addressField.getText().trim();
+            handelcancelTicket();
+        } else if (e.getSource() == backButton) {
+            dispose();
+            //new Login(); // Return to Login Page
+        }
+    }
 
-            if (flightCodeToCancel.isEmpty() || nameToMatch.isEmpty() || addressToMatch.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "All fields must be filled!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+    private void handelcancelTicket() {
+        String flightCodeToCancel = flightCodeField.getText().trim();
+        String nameToMatch = nameField.getText().trim();
+        String addressToMatch = addressField.getText().trim();
 
-            // Step 1: Verify if the flight code exists in addandcancelflight.txt
-            boolean isFlightValid = false;
-            try (BufferedReader flightReader = new BufferedReader(new FileReader("addandcancelflight.txt"))) {
-                String line;
-                while ((line = flightReader.readLine()) != null) {
-                    String[] flightData = line.split(",");
-                    if (flightData[0].equals(flightCodeToCancel)) {
-                        isFlightValid = true;
-                        break;
-                    }
+        if (flightCodeToCancel.isEmpty() || nameToMatch.isEmpty() || addressToMatch.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "All fields must be filled!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // **Step 1: Verify if the flight code exists in addandcancelflight.txt**
+        boolean isFlightValid = false;
+        try (BufferedReader flightReader = new BufferedReader(new FileReader("addandcancelflight.txt"))) {
+            String line;
+            while ((line = flightReader.readLine()) != null) {
+                String[] flightData = line.split(",");
+                if (flightData[0].equals(flightCodeToCancel)) {
+                    isFlightValid = true;
+                    break;
                 }
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "Error verifying flight code!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
             }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error verifying flight code!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-            if (!isFlightValid) {
-                JOptionPane.showMessageDialog(this, "Invalid flight code!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+        if (!isFlightValid) {
+            JOptionPane.showMessageDialog(this, "Invalid flight code!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-            // Step 2: Cancel the ticket from bookflightList.txt
-            File inputFile = new File("bookflightList.txt");
-            File tempFile = new File("tempFile.txt");
-            boolean ticketFound = false;
+        // **Step 2: Cancel the ticket from bookflightList.txt**
+        File inputFile = new File("bookflightList.txt");
+        File tempFile = new File("tempFile.txt");
+        boolean ticketFound = false;
 
-            try (
-                BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-                BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))
-            ) {
-                String currentLine;
+        try (
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))
+        ) {
+            String currentLine;
 
-                while ((currentLine = reader.readLine()) != null) {
-                    String[] ticketData = currentLine.split(",");
-                    if (ticketData.length > 1 && ticketData[0].equals(flightCodeToCancel)
-                            && ticketData[1].equals(nameToMatch) && ticketData[2].equals(addressToMatch)) {
-                        ticketFound = true; // Found the ticket to cancel
-                        continue; // Skip writing this line
-                    }
-                    writer.write(currentLine);
-                    writer.newLine();
+            while ((currentLine = reader.readLine()) != null) {
+                String[] ticketData = currentLine.split(",");
+                if (ticketData.length > 1 && ticketData[0].equals(flightCodeToCancel)
+                        && ticketData[1].equals(nameToMatch) && ticketData[2].equals(addressToMatch)) {
+                    ticketFound = true; // Found the ticket to cancel
+                    continue; // Skip writing this line
                 }
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "Error processing ticket cancellation!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+                writer.write(currentLine);
+                writer.newLine();
             }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error processing ticket cancellation!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-            if (ticketFound) {
-                if (inputFile.delete() && tempFile.renameTo(inputFile)) {
-                    JOptionPane.showMessageDialog(this, "Ticket Cancelled Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Error updating file!", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+        if (ticketFound) {
+            if (inputFile.delete() && tempFile.renameTo(inputFile)) {
+                JOptionPane.showMessageDialog(this, "Ticket Cancelled Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
             } else {
-                tempFile.delete(); // Clean up temporary file if no match found
-                JOptionPane.showMessageDialog(this, "No matching ticket found!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error updating file!", "Error", JOptionPane.ERROR_MESSAGE);
             }
+        } else {
+            tempFile.delete(); // Clean up temporary file if no match found
+            JOptionPane.showMessageDialog(this, "No matching ticket found!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

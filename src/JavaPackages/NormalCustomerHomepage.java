@@ -3,7 +3,6 @@ package JavaPackages;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class NormalCustomerHomepage extends Homepage {
     public NormalCustomerHomepage(String currentUsername) {
@@ -58,26 +57,26 @@ public class NormalCustomerHomepage extends Homepage {
         buttonPanel.add(viewFlightsButton);
 
         // Back Button
-        JButton backButton = new JButton("Back");
-        backButton.setBounds(250, 300, 250, 50); // Position and size at the end
-        backButton.setFont(new Font("Arial", Font.BOLD, 16));
-        backButton.setBackground(new Color(255, 69, 0)); // Red-orange
-        backButton.setForeground(Color.WHITE);
-        backButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
-        backButton.addActionListener(e -> {
+        JButton logoutButton = new JButton("Log Out");
+        logoutButton.setBounds(250, 300, 250, 50); // Position and size at the end
+        logoutButton.setFont(new Font("Arial", Font.BOLD, 16));
+        logoutButton.setBackground(new Color(255, 69, 0)); // Red-orange
+        logoutButton.setForeground(Color.WHITE);
+        logoutButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
+        logoutButton.addActionListener(e -> {
             // Navigate back to login page
             dispose(); // Close the current frame
             new Login(); // Assuming LoginPage is the login class
         });
-        buttonPanel.add(backButton);
+        buttonPanel.add(logoutButton);
 
         // Refresh the panel to apply changes
-        buttonPanel.revalidate();
-        buttonPanel.repaint();
+       /* buttonPanel.revalidate();
+        buttonPanel.repaint();*/
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

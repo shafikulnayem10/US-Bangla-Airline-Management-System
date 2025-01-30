@@ -11,7 +11,7 @@ public class AdminHomepage extends Homepage implements ActionListener {
     private JButton addFlightsButton;
     private JButton cancelFlightsButton;
     private JButton viewProfileButton;
-    private JButton backButton;
+    private JButton logoutButton;
 
     public AdminHomepage(String currentUsername) {
         super(currentUsername);
@@ -71,14 +71,14 @@ public class AdminHomepage extends Homepage implements ActionListener {
         viewProfileButton.addActionListener(this);
 
         // Back button
-        backButton = new JButton("Back");
-        backButton.setBounds(300, 500, 200, 50);
-        backButton.setFont(new Font("Arial", Font.BOLD, 16));
-        backButton.setBackground(new Color(255, 69, 0)); // Red-orange
-        backButton.setForeground(Color.WHITE); // White text
-        backButton.setFocusPainted(false);
-        backButton.setActionCommand("Back");
-        backButton.addActionListener(this);
+        logoutButton = new JButton("Log Out");
+        logoutButton.setBounds(300, 500, 200, 50);
+        logoutButton.setFont(new Font("Arial", Font.BOLD, 16));
+        logoutButton.setBackground(new Color(255, 69, 0)); // Red-orange
+        logoutButton.setForeground(Color.WHITE); // White text
+        logoutButton.setFocusPainted(false);
+        logoutButton.setActionCommand("Log Out");
+        logoutButton.addActionListener(this);
 
         // Add buttons to the panel
         buttonPanel.add(bookingFlightsButton);
@@ -86,27 +86,33 @@ public class AdminHomepage extends Homepage implements ActionListener {
         buttonPanel.add(addFlightsButton);
         buttonPanel.add(cancelFlightsButton);
         buttonPanel.add(viewProfileButton);
-        buttonPanel.add(backButton);
+        buttonPanel.add(logoutButton);
 
         // Refresh panel
-        buttonPanel.revalidate();
-        buttonPanel.repaint();
+       /* buttonPanel.revalidate();
+        buttonPanel.repaint();*/
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String command = e.getActionCommand(); // Get the action command from the button
-        switch (command) {
-            case "Booking Flights" -> new BookingFlights(); // Open Booking Flights page
-            case "Customer Details" -> new ViewCustomerDetails(); // Open Customer Details page
-            case "Add Flights" -> new AddFlights(); // Open Add Flights page
-            case "Cancel Flights" -> new CancelFlights(); // Open Cancel Flights page
-            case "View Profile" -> new ProfileView(currentUsername); // Open Profile View page
-            case "Back" -> {
-                new Login(); // Return to login page
-                dispose(); // Close the admin homepage
-            }
-            default -> JOptionPane.showMessageDialog(this, "Unknown action: " + command);
-        }
+ @Override
+public void actionPerformed(ActionEvent e) {
+    String command = e.getActionCommand(); // Get the action command from the button
+
+    if (command.equals("Booking Flights")) {
+        new BookingFlights(); // Open Booking Flights page
+    } else if (command.equals("Customer Details")) {
+        new ViewCustomerDetails(); // Open Customer Details page
+    } else if (command.equals("Add Flights")) {
+        new AddFlights(); // Open Add Flights page
+    } else if (command.equals("Cancel Flights")) {
+        new CancelFlights(); // Open Cancel Flights page
+    } else if (command.equals("View Profile")) {
+        new ProfileView(currentUsername); // Open Profile View page
+    } else if (command.equals("Log Out")) {
+        new Login(); // Return to login page
+        dispose(); // Close the admin homepage
+    } else {
+        JOptionPane.showMessageDialog(this, "Unknown action: " + command);
     }
+}
+
 }

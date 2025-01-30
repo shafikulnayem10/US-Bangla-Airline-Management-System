@@ -2,111 +2,129 @@ package JavaPackages;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class AddFlights extends JFrame {
+public class AddFlights extends JFrame implements ActionListener {
     private JTextField flightCodeField;
+    private JComboBox<String> fromComboBox, toComboBox;
+    private JButton addButton, backButton;
+    private JLabel titleLabel, fromLabel, toLabel, flightCodeLabel;
+    private JPanel formPanel, buttonPanel;
 
     public AddFlights() {
         // Frame setup
         setTitle("Add Flights");
-        setSize(500, 500); // Adjusted for better view
+        setSize(500, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(null); // Manual positioning
+        setLayout(new BorderLayout(10, 10));
+
         // Set the application icon
         ImageIcon bdFlag = new ImageIcon(getClass().getResource("bdflag.png"));
         this.setIconImage(bdFlag.getImage());
 
         // Title label
-        JLabel titleLabel = new JLabel("Add Flights", JLabel.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel = new JLabel("Add Flights", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
         titleLabel.setOpaque(true);
         titleLabel.setBackground(new Color(135, 206, 250)); // Light blue
-        titleLabel.setForeground(Color.WHITE); // White text
-        titleLabel.setBounds(0, 10, 500, 40); // Set bounds manually
-        add(titleLabel);
+        titleLabel.setForeground(Color.WHITE);
+        add(titleLabel, BorderLayout.NORTH);
 
-        // Labels and inputs
-        JLabel fromLabel = new JLabel("From:");
-        fromLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        fromLabel.setBounds(50, 80, 150, 30);
-        add(fromLabel);
+        // Form panel with GridLayout
+        formPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+        formPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-        JComboBox<String> fromComboBox = new JComboBox<>(new String[]{"Dhaka", "Chittagong", "Sylhet"});
-        fromComboBox.setFont(new Font("Arial", Font.PLAIN, 16));
-        fromComboBox.setBounds(200, 80, 200, 30);
-        add(fromComboBox);
+        fromLabel = new JLabel("From:");
+        fromLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        formPanel.add(fromLabel);
 
-        JLabel toLabel = new JLabel("To:");
-        toLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        toLabel.setBounds(50, 140, 150, 30);
-        add(toLabel);
+        String[] fromLocations = {"Dhaka", "Chittagong", "Sylhet"};
+        fromComboBox = new JComboBox<>(fromLocations);
+        formPanel.add(fromComboBox);
 
-        JComboBox<String> toComboBox = new JComboBox<>(new String[]{"Chittagong", "Sylhet", "Dhaka"});
-        toComboBox.setFont(new Font("Arial", Font.PLAIN, 16));
-        toComboBox.setBounds(200, 140, 200, 30);
-        add(toComboBox);
+        toLabel = new JLabel("To:");
+        toLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        formPanel.add(toLabel);
 
-        JLabel flightCodeLabel = new JLabel("Flight Code:");
-        flightCodeLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        flightCodeLabel.setBounds(50, 200, 150, 30);
-        add(flightCodeLabel);
+        String[] toLocations = {"Chittagong", "Sylhet", "Dhaka"};
+        toComboBox = new JComboBox<>(toLocations);
+        formPanel.add(toComboBox);
+
+        flightCodeLabel = new JLabel("Flight Code:");
+        flightCodeLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        formPanel.add(flightCodeLabel);
 
         flightCodeField = new JTextField();
-        flightCodeField.setFont(new Font("Arial", Font.PLAIN, 16));
-        flightCodeField.setBounds(200, 200, 200, 30);
-        add(flightCodeField);
+        formPanel.add(flightCodeField);
 
-        // Add Flight button
-        JButton addButton = new JButton("Add Flight");
-        addButton.setFont(new Font("Arial", Font.BOLD, 16));
+        add(formPanel, BorderLayout.CENTER);
+
+        // Button panel
+        buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+
+        addButton = new JButton("Add Flight");
+        addButton.setFont(new Font("Arial", Font.BOLD, 14));
         addButton.setBackground(new Color(60, 179, 113)); // Medium sea green
-        addButton.setForeground(Color.WHITE); // White text
+        addButton.setForeground(Color.WHITE);
         addButton.setFocusPainted(false);
-        addButton.setBounds(150, 300, 200, 40);
-        addButton.addActionListener(e -> {
-            String from = (String) fromComboBox.getSelectedItem();
-            String to = (String) toComboBox.getSelectedItem();
-            String flightCode = flightCodeField.getText().trim();
+        addButton.addActionListener(this);
+        buttonPanel.add(addButton);
 
-            if (from.equals(to)) {
-                JOptionPane.showMessageDialog(this, "From and To locations cannot be the same!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (flightCode.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Flight Code cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            File file = new File("addandcancelflight.txt");
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
-                writer.write(flightCode + "," + from + "," + to);
-                writer.newLine();
-                JOptionPane.showMessageDialog(this, "Flight added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "Error adding flight!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        });
-        add(addButton);
-
-        // Back button
-        JButton backButton = new JButton("Back");
-        backButton.setFont(new Font("Arial", Font.BOLD, 16));
+        backButton = new JButton("Back");
+        backButton.setFont(new Font("Arial", Font.BOLD, 14));
         backButton.setBackground(new Color(255, 69, 0)); // Red-orange
-        backButton.setForeground(Color.WHITE); // White text
+        backButton.setForeground(Color.WHITE);
         backButton.setFocusPainted(false);
-        backButton.setBounds(150, 360, 200, 40);
-        backButton.addActionListener(e -> dispose());
-        add(backButton);
+        backButton.addActionListener(this);
+        buttonPanel.add(backButton);
+
+        add(buttonPanel, BorderLayout.SOUTH);
 
         // Display the frame
         setVisible(true);
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == addButton) {
+            addFlight();
+        } else if (e.getSource() == backButton) {
+            dispose(); // Close the window when Back button is clicked
+        }
+    }
+
+    private void addFlight() {
+        String from = (String) fromComboBox.getSelectedItem();
+        String to = (String) toComboBox.getSelectedItem();
+        String flightCode = flightCodeField.getText().trim();
+
+        if (from.equals(to)) {
+            JOptionPane.showMessageDialog(this, "From and To locations cannot be the same!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (flightCode.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Flight Code cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        File file = new File("addandcancelflight.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
+            writer.write(flightCode + "," + from + "," + to);
+            writer.newLine();
+            JOptionPane.showMessageDialog(this, "Flight added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error adding flight!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }
+
 

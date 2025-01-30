@@ -3,84 +3,108 @@ package JavaPackages;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 
-public class ChangePassword extends JFrame {
+public class ChangePassword extends JFrame implements ActionListener {
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JComboBox<String> statusComboBox;
-    private JButton updateButton;
+    private JButton updateButton, backButton;
+    private JLabel titleLabel, usernameLabel, passwordLabel, statusLabel;
+    private JPanel formPanel, buttonPanel;
 
     public ChangePassword() {
-        // Frame setup
+        // **Frame setup**
         setTitle("Change Password");
         setSize(500, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLayout(null); // Use absolute layout for manual placement
+        setLayout(new BorderLayout());
 
-        // Background color
-        getContentPane().setBackground(new Color(240, 248, 255)); // Light blue
+        // **Title Label**
+        titleLabel = new JLabel("Change Password", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
+        titleLabel.setOpaque(true);
+        titleLabel.setBackground(new Color(0, 102, 204)); // Blue
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        add(titleLabel, BorderLayout.NORTH);
 
-        // Labels
-        JLabel usernameLabel = new JLabel("Username:");
-        usernameLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        usernameLabel.setForeground(new Color(25, 25, 112)); // Navy color
-        usernameLabel.setBounds(50, 50, 150, 30);
+        // **Form Panel (GridLayout)**
+        formPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        formPanel.setBackground(new Color(240, 248, 255)); // Light blue
 
-        JLabel passwordLabel = new JLabel("New Password:");
-        passwordLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        passwordLabel.setForeground(new Color(25, 25, 112));
-        passwordLabel.setBounds(50, 100, 150, 30);
+        // **Labels & Input Fields**
+        usernameLabel = new JLabel("Username:");
+        usernameLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        usernameLabel.setForeground(Color.BLACK);
+        formPanel.add(usernameLabel);
 
-        JLabel statusLabel = new JLabel("Status:");
-        statusLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        statusLabel.setForeground(new Color(25, 25, 112));
-        statusLabel.setBounds(50, 150, 150, 30);
-
-        // Text fields
         usernameField = new JTextField();
         usernameField.setFont(new Font("Arial", Font.PLAIN, 14));
-        usernameField.setBackground(new Color(245, 245, 245)); // Light gray
-        usernameField.setBorder(BorderFactory.createLineBorder(new Color(169, 169, 169)));
-        usernameField.setBounds(200, 50, 200, 30);
+        formPanel.add(usernameField);
+
+        passwordLabel = new JLabel("New Password:");
+        passwordLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        passwordLabel.setForeground(Color.BLACK);
+        formPanel.add(passwordLabel);
 
         passwordField = new JPasswordField();
         passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
-        passwordField.setBackground(new Color(245, 245, 245)); // Light gray
-        passwordField.setBorder(BorderFactory.createLineBorder(new Color(169, 169, 169)));
-        passwordField.setBounds(200, 100, 200, 30);
+        formPanel.add(passwordField);
 
-        statusComboBox = new JComboBox<>(new String[]{"Admin", "Normal Customer", "Premium Customer"});
+        statusLabel = new JLabel("Status:");
+        statusLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        statusLabel.setForeground(Color.BLACK);
+        formPanel.add(statusLabel);
+
+        String[] statuses = {"Admin", "Normal Customer", "Premium Customer"};
+        statusComboBox = new JComboBox<>(statuses);
         statusComboBox.setFont(new Font("Arial", Font.PLAIN, 14));
-        statusComboBox.setBackground(new Color(245, 245, 245)); // Light gray
-        statusComboBox.setBorder(BorderFactory.createLineBorder(new Color(169, 169, 169)));
-        statusComboBox.setBounds(200, 150, 200, 30);
+        formPanel.add(statusComboBox);
 
-        // Update button
+        add(formPanel, BorderLayout.CENTER);
+
+        // **Button Panel**
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        buttonPanel.setBackground(new Color(240, 248, 255));
+
         updateButton = new JButton("Update");
         updateButton.setFont(new Font("Arial", Font.BOLD, 16));
         updateButton.setBackground(new Color(34, 139, 34)); // Green
         updateButton.setForeground(Color.WHITE);
-        updateButton.setFocusPainted(false);
         updateButton.setBorder(BorderFactory.createLineBorder(new Color(0, 100, 0), 2));
         updateButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        updateButton.setBounds(150, 250, 150, 40);
-        updateButton.addActionListener(this::handleUpdate);
+        updateButton.addActionListener(this);
+        buttonPanel.add(updateButton);
 
-        // Adding components to the frame
-        add(usernameLabel);
-        add(usernameField);
-        add(passwordLabel);
-        add(passwordField);
-        add(statusLabel);
-        add(statusComboBox);
-        add(updateButton);
+        backButton = new JButton("Back");
+        backButton.setFont(new Font("Arial", Font.BOLD, 16));
+        backButton.setBackground(new Color(255, 69, 0)); // Red-orange
+        backButton.setForeground(Color.WHITE);
+        backButton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        backButton.addActionListener(this);
+        buttonPanel.add(backButton);
+
+        add(buttonPanel, BorderLayout.SOUTH);
 
         setVisible(true);
     }
 
-    private void handleUpdate(ActionEvent e) {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == updateButton) {
+            handleUpdate();
+        } else if (e.getSource() == backButton) {
+            dispose();
+           // new Login(); // Return to Login Page
+        }
+    }
+
+    private void handleUpdate() {
         String username = usernameField.getText().trim();
         String newPassword = new String(passwordField.getPassword()).trim();
         String status = (String) statusComboBox.getSelectedItem();
@@ -117,8 +141,8 @@ public class ChangePassword extends JFrame {
 
         if (userFound) {
             if (inputFile.delete() && tempFile.renameTo(inputFile)) {
-                JOptionPane.showMessageDialog(this, "Details updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                dispose(); // Close change password window
+                JOptionPane.showMessageDialog(this, "Password updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Error updating file!", "Error", JOptionPane.ERROR_MESSAGE);
             }

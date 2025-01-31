@@ -6,8 +6,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public abstract class Homepage extends JFrame {
-    protected final JLayeredPane layeredPane; // For layering components
-    protected final JPanel buttonPanel; // Transparent panel for buttons
+    protected  JLayeredPane layeredPane; // For layering components
+    protected  JPanel buttonPanel; // Transparent panel for buttons
     protected String currentUsername; // Stores the username of the logged-in user
    protected  JPanel headerPanel;
     public Homepage(String currentUsername) {
@@ -83,22 +83,19 @@ public abstract class Homepage extends JFrame {
         ImageIcon airplaneIcon = new ImageIcon(getClass().getResource("AirPlaneIcon.png"));
         JLabel airPlaneIconLabel = new JLabel(airplaneIcon);
         airPlaneIconLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-
+        messagePanel.add(airPlaneIconLabel);
         // "Important" Text section
         JLabel importantTextLabel = new JLabel("Important");
         importantTextLabel.setFont(new Font("Arial", Font.BOLD, 24));
         importantTextLabel.setForeground(new Color(139, 0, 0)); // Dark red color
-
+        messagePanel.add(importantTextLabel);
         // Message Text section
         JLabel messageLabel = new JLabel("Enjoy SELF CHECK-IN KIOSK in domestic terminal");
         messageLabel.setFont(new Font("Arial", Font.PLAIN, 24));
         messageLabel.setForeground(Color.BLACK);
-
-        // Add airplane icon and messages to the message panel
-        messagePanel.add(airPlaneIconLabel);
-        messagePanel.add(importantTextLabel);
         messagePanel.add(messageLabel);
-
+    
+  
         // Add message panel to the center of the header
         headerPanel.add(messagePanel, BorderLayout.CENTER);
         headerPanel.setBorder(border);

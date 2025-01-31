@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Login extends JFrame implements ActionListener {
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private JComboBox<String> statusComboBox;
+    private JComboBox  statusComboBox;
     private JButton loginButton, signupButton, changePasswordButton, closeButton;
     private JLabel titleLabel, usernameLabel, passwordLabel, statusLabel;
     private JPanel formPanel, buttonPanel;

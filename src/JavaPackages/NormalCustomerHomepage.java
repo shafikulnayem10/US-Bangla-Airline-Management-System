@@ -2,9 +2,8 @@ package JavaPackages;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
-public class NormalCustomerHomepage extends Homepage {
+public class NormalCustomerHomepage extends Homepage  {
     public NormalCustomerHomepage(String currentUsername) {
         super(currentUsername);
         initializeButtons();
@@ -37,10 +36,12 @@ public class NormalCustomerHomepage extends Homepage {
         buttonPanel.add(cancelBookingButton);
 
         // View Profile Button
-        JButton viewProfileButton = new JButton("View Profile");
-        viewProfileButton.setBounds(100, 200, 250, 50); // Position and size
+        ImageIcon viewprofileicon=new ImageIcon(getClass().getResource("viewprofileimage.png"));
+      
+        JButton viewProfileButton = new JButton(viewprofileicon);
+        viewProfileButton.setBounds(160, 180, 100, 100); // Position and size
         viewProfileButton.setFont(new Font("Arial", Font.BOLD, 16));
-        viewProfileButton.setBackground(new Color(152, 251, 152)); // Pale green
+        viewProfileButton.setBackground(Color.WHITE); // Pale green
         viewProfileButton.setForeground(Color.BLACK);
         viewProfileButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
         viewProfileButton.addActionListener(e -> new ProfileView(currentUsername));
@@ -70,13 +71,10 @@ public class NormalCustomerHomepage extends Homepage {
         });
         buttonPanel.add(logoutButton);
 
-        // Refresh the panel to apply changes
-       /* buttonPanel.revalidate();
-        buttonPanel.repaint();*/
+       
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    
+
+   
 }

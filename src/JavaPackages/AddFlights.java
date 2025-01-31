@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class AddFlights extends JFrame implements ActionListener {
     private JTextField flightCodeField;
-    private JComboBox<String> fromComboBox, toComboBox;
+    private JComboBox   fromComboBox, toComboBox;
     private JButton addButton, backButton;
     private JLabel titleLabel, fromLabel, toLabel, flightCodeLabel;
     private JPanel formPanel, buttonPanel;
@@ -45,7 +45,7 @@ public class AddFlights extends JFrame implements ActionListener {
         formPanel.add(fromLabel);
 
         String[] fromLocations = {"Dhaka", "Chittagong", "Sylhet"};
-        fromComboBox = new JComboBox<>(fromLocations);
+        fromComboBox = new JComboBox (fromLocations);
         formPanel.add(fromComboBox);
 
         toLabel = new JLabel("To:");
@@ -53,7 +53,7 @@ public class AddFlights extends JFrame implements ActionListener {
         formPanel.add(toLabel);
 
         String[] toLocations = {"Chittagong", "Sylhet", "Dhaka"};
-        toComboBox = new JComboBox<>(toLocations);
+        toComboBox = new JComboBox (toLocations);
         formPanel.add(toComboBox);
 
         flightCodeLabel = new JLabel("Flight Code:");

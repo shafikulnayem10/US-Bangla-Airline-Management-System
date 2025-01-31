@@ -9,7 +9,7 @@ import java.io.*;
 public class ChangePassword extends JFrame implements ActionListener {
     private JTextField usernameField;
     private JPasswordField passwordField;
-    private JComboBox<String> statusComboBox;
+    private JComboBox  statusComboBox;
     private JButton updateButton, backButton;
     private JLabel titleLabel, usernameLabel, passwordLabel, statusLabel;
     private JPanel formPanel, buttonPanel;
@@ -61,7 +61,7 @@ public class ChangePassword extends JFrame implements ActionListener {
         formPanel.add(statusLabel);
 
         String[] statuses = {"Admin", "Normal Customer", "Premium Customer"};
-        statusComboBox = new JComboBox<>(statuses);
+        statusComboBox = new JComboBox (statuses);
         statusComboBox.setFont(new Font("Arial", Font.PLAIN, 14));
         formPanel.add(statusComboBox);
 

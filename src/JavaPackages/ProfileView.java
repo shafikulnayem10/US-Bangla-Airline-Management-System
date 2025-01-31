@@ -122,13 +122,13 @@ public class ProfileView extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == updateButton) {
-            updateProfile();
+            handleupdateProfile();
         } else if (e.getSource() == backButton) {
             dispose();
         }
     }
 
-    private void updateProfile() {
+    private void handleupdateProfile() {
         String updatedName = nameField.getText().trim();
         String updatedPassword = new String(passwordField.getPassword()).trim();
         String updatedStatus = (String) statusComboBox.getSelectedItem();

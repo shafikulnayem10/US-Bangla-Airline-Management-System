@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Registration extends JFrame implements ActionListener {
     private JTextField nameField, usernameField;
     private JPasswordField passwordField;
-    private JComboBox<String> statusComboBox;
+    private JComboBox  statusComboBox;
     private JButton signupButton, backButton;
     private JLabel titleLabel, nameLabel, usernameLabel, passwordLabel, statusLabel;
     private JPanel formPanel, buttonPanel;

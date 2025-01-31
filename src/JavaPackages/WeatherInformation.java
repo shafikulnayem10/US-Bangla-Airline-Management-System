@@ -28,6 +28,9 @@ public class WeatherInformation extends JFrame {
         weatherTable.setFont(new Font("Arial", Font.PLAIN, 14));
         weatherTable.setRowHeight(25);
 
+        // **Disable Editing (Easiest Way)**
+        weatherTable.setDefaultEditor(Object.class, null);
+
         // **Directly Add Rows to TableModel**
         tableModel.addRow(new Object[]{"2025-01-25", "25°C", "27°C", "30°C"});
         tableModel.addRow(new Object[]{"2025-01-26", "26°C", "28°C", "31°C"});

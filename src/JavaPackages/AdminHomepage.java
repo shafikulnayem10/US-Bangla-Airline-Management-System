@@ -33,6 +33,7 @@ public class AdminHomepage extends Homepage implements ActionListener {
         bookingFlightsButton.setFocusPainted(false);
         bookingFlightsButton.setActionCommand("Booking Flights");
         bookingFlightsButton.addActionListener(this);
+        buttonPanel.add(bookingFlightsButton);
 
         // Customer Details button
         customerDetailsButton = new JButton("Customer Details");
@@ -42,6 +43,7 @@ public class AdminHomepage extends Homepage implements ActionListener {
         customerDetailsButton.setFocusPainted(false);
         customerDetailsButton.setActionCommand("Customer Details");
         customerDetailsButton.addActionListener(this);
+        buttonPanel.add(customerDetailsButton);
 
         // Add Flights button
         addFlightsButton = new JButton("Add Flights");
@@ -51,6 +53,7 @@ public class AdminHomepage extends Homepage implements ActionListener {
         addFlightsButton.setFocusPainted(false);
         addFlightsButton.setActionCommand("Add Flights");
         addFlightsButton.addActionListener(this);
+        buttonPanel.add(addFlightsButton);
 
         // Cancel Flights button
         cancelFlightsButton = new JButton("Cancel Flights");
@@ -60,16 +63,18 @@ public class AdminHomepage extends Homepage implements ActionListener {
         cancelFlightsButton.setFocusPainted(false);
         cancelFlightsButton.setActionCommand("Cancel Flights");
         cancelFlightsButton.addActionListener(this);
+        buttonPanel.add(cancelFlightsButton);
 
         // View Profile button
-        viewProfileButton = new JButton("View Profile");
-        viewProfileButton.setBounds(550, 400, 200, 50);
+        ImageIcon viewprofileicon=new ImageIcon(getClass().getResource("viewprofileimage.png"));
+        viewProfileButton = new JButton(viewprofileicon);
+        viewProfileButton.setBounds(550, 300, 100, 100);
         viewProfileButton.setFont(new Font("Arial", Font.BOLD, 16));
-        viewProfileButton.setBackground(new Color(240, 230, 140)); // Light yellow
+        viewProfileButton.setBackground(Color.WHITE); // Light yellow
         viewProfileButton.setFocusPainted(false);
         viewProfileButton.setActionCommand("View Profile");
         viewProfileButton.addActionListener(this);
-
+        buttonPanel.add(viewProfileButton);
         // Back button
         logoutButton = new JButton("Log Out");
         logoutButton.setBounds(300, 500, 200, 50);
@@ -79,18 +84,11 @@ public class AdminHomepage extends Homepage implements ActionListener {
         logoutButton.setFocusPainted(false);
         logoutButton.setActionCommand("Log Out");
         logoutButton.addActionListener(this);
-
-        // Add buttons to the panel
-        buttonPanel.add(bookingFlightsButton);
-        buttonPanel.add(customerDetailsButton);
-        buttonPanel.add(addFlightsButton);
-        buttonPanel.add(cancelFlightsButton);
-        buttonPanel.add(viewProfileButton);
         buttonPanel.add(logoutButton);
 
-        // Refresh panel
-       /* buttonPanel.revalidate();
-        buttonPanel.repaint();*/
+      
+       
+
     }
 
  @Override

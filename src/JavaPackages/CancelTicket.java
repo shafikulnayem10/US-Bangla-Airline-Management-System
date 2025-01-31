@@ -94,14 +94,14 @@ public class CancelTicket extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == cancelButton) {
-            handelcancelTicket();
+            handlecancelTicket();
         } else if (e.getSource() == backButton) {
             dispose();
             //new Login(); // Return to Login Page
         }
     }
 
-    private void handelcancelTicket() {
+    private void handlecancelTicket() {
         String flightCodeToCancel = flightCodeField.getText().trim();
         String nameToMatch = nameField.getText().trim();
         String addressToMatch = addressField.getText().trim();

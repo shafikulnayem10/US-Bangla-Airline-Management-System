@@ -2,10 +2,8 @@ package JavaPackages;
  
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
  
-public class PremiumCustomerHomepage extends Homepage implements ActionListener {
+public class PremiumCustomerHomepage extends Homepage  {
     private JButton bookFlightButton, cancelFlightButton, profileButton, viewFlightsButton, customerSupportButton, weatherInfoButton, logoutButton;
  
     public PremiumCustomerHomepage(String currentUsername) {
@@ -70,10 +68,11 @@ public class PremiumCustomerHomepage extends Homepage implements ActionListener 
         buttonPanel.add(weatherInfoButton);
  
         // **Profile Button**
-        profileButton = new JButton("Profile");
-        profileButton.setBounds(550, 260, 250, 50);
+        ImageIcon viewprofileicon=new ImageIcon(getClass().getResource("viewprofileimage.png"));
+        profileButton = new JButton(viewprofileicon);
+        profileButton.setBounds(650, 260, 100, 100);
         profileButton.setFont(new Font("Arial", Font.BOLD, 16));
-        profileButton.setBackground(new Color(255, 215, 0)); // Gold
+        profileButton.setBackground(Color.WHITE); // Gold
         profileButton.setForeground(Color.BLACK);
         profileButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
         profileButton.addActionListener(e -> new ProfileView(currentUsername));
@@ -81,7 +80,7 @@ public class PremiumCustomerHomepage extends Homepage implements ActionListener 
 
         // **Logout Button**
         logoutButton = new JButton("Log Out");
-        logoutButton.setBounds(400, 340, 250, 50);
+        logoutButton.setBounds(400, 400, 250, 50);
         logoutButton.setFont(new Font("Arial", Font.BOLD, 16));
         logoutButton.setBackground(new Color(255, 69, 0)); // Red-orange
         logoutButton.setForeground(Color.WHITE);
@@ -93,8 +92,5 @@ public class PremiumCustomerHomepage extends Homepage implements ActionListener 
         buttonPanel.add(logoutButton);
     }
  
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // Not needed as action listeners are set directly in initializeButtons()
-    }
+   
 }

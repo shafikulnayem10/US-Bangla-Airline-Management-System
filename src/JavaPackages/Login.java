@@ -23,7 +23,7 @@ public class Login extends JFrame implements ActionListener {
         setLocationRelativeTo(null); // Center the frame
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-
+       
         // Set the application icon
         ImageIcon bdFlag = new ImageIcon(getClass().getResource("bdflag.png"));
         this.setIconImage(bdFlag.getImage());
@@ -32,7 +32,8 @@ public class Login extends JFrame implements ActionListener {
         ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("log in page bg.jpg"));
         JLabel backgroundLabel = new JLabel(backgroundIcon);
         backgroundLabel.setLayout(new BorderLayout());
-
+        // Add backgroundLabel as content pane
+        setContentPane(backgroundLabel);
         // Title Label
         titleLabel = new JLabel("Login", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
@@ -48,17 +49,17 @@ public class Login extends JFrame implements ActionListener {
 
         // Labels (Now all white)
         statusLabel = new JLabel("Log in as:");
-        statusLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        statusLabel.setFont(new Font("Arial", Font.BOLD, 20));
         statusLabel.setForeground(Color.WHITE);
         formPanel.add(statusLabel);
 
         String[] statuses = {"Admin", "Normal Customer", "Premium Customer"};
-        statusComboBox = new JComboBox<>(statuses);
-        statusComboBox.setFont(new Font("Arial", Font.PLAIN, 14));
+        statusComboBox = new JComboBox (statuses);
+        statusComboBox.setFont(new Font("Arial", Font.PLAIN, 20));
         formPanel.add(statusComboBox);
 
         usernameLabel = new JLabel("Username:");
-        usernameLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        usernameLabel.setFont(new Font("Arial", Font.BOLD, 20));
         usernameLabel.setForeground(Color.WHITE);
         formPanel.add(usernameLabel);
 
@@ -85,7 +86,7 @@ public class Login extends JFrame implements ActionListener {
         buttonPanel.setOpaque(false);
 
         loginButton = new JButton("Log In");
-        loginButton.setFont(new Font("Arial", Font.BOLD, 14));
+        loginButton.setFont(new Font("Arial", Font.BOLD, 20));
         loginButton.setBackground(new Color(72, 209, 204)); // Light turquoise
         loginButton.setForeground(Color.WHITE);
         loginButton.setFocusPainted(false);
@@ -93,7 +94,7 @@ public class Login extends JFrame implements ActionListener {
         buttonPanel.add(loginButton);
 
         signupButton = new JButton("Sign Up");
-        signupButton.setFont(new Font("Arial", Font.BOLD, 14));
+        signupButton.setFont(new Font("Arial", Font.BOLD, 20));
         signupButton.setBackground(new Color(72, 209, 204)); // Light turquoise
         signupButton.setForeground(Color.WHITE);
         signupButton.setFocusPainted(false);
@@ -101,7 +102,7 @@ public class Login extends JFrame implements ActionListener {
         buttonPanel.add(signupButton);
 
         changePasswordButton = new JButton("Change Password");
-        changePasswordButton.setFont(new Font("Arial", Font.BOLD, 14));
+        changePasswordButton.setFont(new Font("Arial", Font.BOLD, 20));
         changePasswordButton.setBackground(new Color(72, 209, 204));
         changePasswordButton.setForeground(Color.WHITE);
         changePasswordButton.setFocusPainted(false);
@@ -109,7 +110,7 @@ public class Login extends JFrame implements ActionListener {
         buttonPanel.add(changePasswordButton);
 
         closeButton = new JButton("Close");
-        closeButton.setFont(new Font("Arial", Font.BOLD, 14));
+        closeButton.setFont(new Font("Arial", Font.BOLD, 20));
         closeButton.setBackground(new Color(255, 69, 58)); // Light red for close
         closeButton.setForeground(Color.WHITE);
         closeButton.setFocusPainted(false);
@@ -117,10 +118,8 @@ public class Login extends JFrame implements ActionListener {
         buttonPanel.add(closeButton);
 
         backgroundLabel.add(buttonPanel, BorderLayout.SOUTH);
-
-        // Add backgroundLabel as content pane
-        setContentPane(backgroundLabel);
-        setVisible(true);
+       setVisible(true);
+        
     }
 
     @Override

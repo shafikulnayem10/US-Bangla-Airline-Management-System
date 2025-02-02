@@ -1,13 +1,15 @@
 thenameisnayeem,nayeem@10,Admin,nayeem10
-thenameistajmun,tajmun@10,Normal Customer,tajmun
+thenameistajmun,tajmun@10,Admin,tajmun
 thenameishridoy,hridoy@10,Normal Customer,hridoy
 thenameisjhorna,jhorna@10,Normal Customer,jhorna
 shafikul10,shafikul@10,Admin,shafikul
 rasel10,rasel@10,Premium Customer,rasel
 thenameistaslima,taslima@10,Normal Customer,taslima
 thenameisayman,ayman@10,Admin,ayman
-nayeem24,nayeem@10,Admin,nayeem
+nayeem24,nayeem@10,Normal Customer,nayeem
 admin,admin,Admin,admin
 ayman10,ayman10,Admin,ayman ahmed
 hridoy24,hridoy24,Admin,hridoy islam
 nayeem10,nayeem10,Premium Customer,nayeem10
+thenameisnayeem,nayeem@10,Premium Customer,nayeem
+n,n,Admin,n

@@ -6,3 +6,4 @@ Nayeem,kaundia,Chittagong,Sylhet,Round Trip
 409,tajmun,bagbari,Dhaka,Dhaka,One Way
 1,tajmun,mirpur-1,Dhaka,Chittagong,One Way
 1,tajmun,mirpur-6,Dhaka,Chittagong,One Way
+2,tajmun,mirpur-10,Dhaka,Chittagong,One Way

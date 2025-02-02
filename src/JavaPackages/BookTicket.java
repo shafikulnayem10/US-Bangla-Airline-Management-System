@@ -141,7 +141,9 @@ public class BookTicket extends JFrame implements ActionListener {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
                 writer.write(flightCode + "," + name + "," + address + "," + from + "," + to + "," + tripType);
                 writer.newLine();
+                 
                 JOptionPane.showMessageDialog(this, "Ticket Booked Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                
                 dispose();
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(this, "Error saving ticket details!", "Error", JOptionPane.ERROR_MESSAGE);

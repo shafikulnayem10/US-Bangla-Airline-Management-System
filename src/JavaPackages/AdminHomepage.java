@@ -12,6 +12,7 @@ public class AdminHomepage extends Homepage implements ActionListener {
     private JButton cancelFlightsButton;
     private JButton viewProfileButton;
     private JButton logoutButton;
+    private JButton viewFlightsButton;
 
     public AdminHomepage(String currentUsername) {
         super(currentUsername);
@@ -65,52 +66,60 @@ public class AdminHomepage extends Homepage implements ActionListener {
         cancelFlightsButton.addActionListener(this);
         buttonPanel.add(cancelFlightsButton);
 
+        // View Flights button
+        viewFlightsButton = new JButton("View Flights");
+        viewFlightsButton.setBounds(50, 500, 200, 50);
+        viewFlightsButton.setFont(new Font("Arial", Font.BOLD, 16));
+        viewFlightsButton.setBackground(new Color(173, 216, 230)); // Light blue
+        viewFlightsButton.setFocusPainted(false);
+        viewFlightsButton.setActionCommand("View Flights");
+        viewFlightsButton.addActionListener(this);
+        buttonPanel.add(viewFlightsButton);
+
         // View Profile button
-        ImageIcon viewprofileicon=new ImageIcon(getClass().getResource("viewprofileimage.png"));
+        ImageIcon viewprofileicon = new ImageIcon(getClass().getResource("viewprofileimage.png"));
         viewProfileButton = new JButton(viewprofileicon);
         viewProfileButton.setBounds(550, 300, 100, 100);
         viewProfileButton.setFont(new Font("Arial", Font.BOLD, 16));
-        viewProfileButton.setBackground(Color.WHITE); // Light yellow
+        viewProfileButton.setBackground(Color.WHITE);
         viewProfileButton.setFocusPainted(false);
         viewProfileButton.setActionCommand("View Profile");
         viewProfileButton.addActionListener(this);
         buttonPanel.add(viewProfileButton);
-        // Back button
+
+        // Logout button
         logoutButton = new JButton("Log Out");
         logoutButton.setBounds(300, 500, 200, 50);
         logoutButton.setFont(new Font("Arial", Font.BOLD, 16));
         logoutButton.setBackground(new Color(255, 69, 0)); // Red-orange
-        logoutButton.setForeground(Color.WHITE); // White text
+        logoutButton.setForeground(Color.WHITE);
         logoutButton.setFocusPainted(false);
         logoutButton.setActionCommand("Log Out");
         logoutButton.addActionListener(this);
         buttonPanel.add(logoutButton);
-
-      
-       
-
     }
 
- @Override
-public void actionPerformed(ActionEvent e) {
-    String command = e.getActionCommand(); // Get the action command from the button
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand(); // Get the action command from the button
 
-    if (command.equals("Booking Flights")) {
-        new BookingFlights(); // Open Booking Flights page
-    } else if (command.equals("Customer Details")) {
-        new ViewCustomerDetails(); // Open Customer Details page
-    } else if (command.equals("Add Flights")) {
-        new AddFlights(); // Open Add Flights page
-    } else if (command.equals("Cancel Flights")) {
-        new CancelFlights(); // Open Cancel Flights page
-    } else if (command.equals("View Profile")) {
-        new ProfileView(currentUsername); // Open Profile View page
-    } else if (command.equals("Log Out")) {
-        new Login(); // Return to login page
-        dispose(); // Close the admin homepage
-    } else {
-        JOptionPane.showMessageDialog(this, "Unknown action: " + command);
+        if (command.equals("Booking Flights")) {
+            new BookingFlights(); // Open Booking Flights page
+        } else if (command.equals("Customer Details")) {
+            new ViewCustomerDetails(); // Open Customer Details page
+        } else if (command.equals("Add Flights")) {
+            new AddFlights(); // Open Add Flights page
+        } else if (command.equals("Cancel Flights")) {
+            new CancelFlights(); // Open Cancel Flights page
+        } else if (command.equals("View Flights")) {
+            new ViewFlights(); // Open View Flights page
+        } else if (command.equals("View Profile")) {
+            new ProfileView(currentUsername); // Open Profile View page
+        } else if (command.equals("Log Out")) {
+            new Login(); // Return to login page
+            dispose(); // Close the admin homepage
+        } else {
+            JOptionPane.showMessageDialog(this, "Unknown action: " + command);
+        }
     }
-}
-
 }

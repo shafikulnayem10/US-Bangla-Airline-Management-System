@@ -14,3 +14,8 @@ nayeem10,nayeem10,Premium Customer,nayeem10
 thenameisnayeem,nayeem@10,Premium Customer,nayeem
 n,n,Admin,n
 a,a,Admin,a
+t,t,Normal Customer,t
+r,r,Normal Customer,r
+a,a,Admin,a
+t,t,Normal Customer,t
+p,p,Premium Customer,p

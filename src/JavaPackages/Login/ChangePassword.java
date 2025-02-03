@@ -7,91 +7,85 @@ import java.awt.event.ActionListener;
 import java.io.*;
 
 public class ChangePassword extends JFrame implements ActionListener {
-    private JTextField usernameField;
-    private JPasswordField passwordField;
-    private JComboBox  statusComboBox;
-    private JButton updateButton, backButton;
-    private JLabel titleLabel, usernameLabel, passwordLabel, statusLabel;
-    private JPanel formPanel, buttonPanel;
+ private JTextField usernameField;
+  private JPasswordField passwordField;
+  private JComboBox  statusComboBox;
+  private JButton updateButton, backButton;
+  private JLabel titleLabel, usernameLabel, passwordLabel, statusLabel;
+ private JPanel formPanel, buttonPanel;
 
     public ChangePassword() {
-        // **Frame setup**
-        setTitle("Change Password");
-        setSize(500, 400);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLayout(new BorderLayout());
+       
+      this.setTitle("Change Password");
+      this. setSize(500, 400);
+      this. setLocationRelativeTo(null);
+       this. setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+     this. setLayout(new BorderLayout());
 
-        // **Title Label**
-        titleLabel = new JLabel("Change Password", JLabel.CENTER);
+        
+      titleLabel = new JLabel("Change Password", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
-        titleLabel.setOpaque(true);
-        titleLabel.setBackground(new Color(0, 102, 204)); // Blue
-        titleLabel.setForeground(Color.WHITE);
+      titleLabel.setOpaque(true);
+      titleLabel.setBackground(Color.BLUE);
+       titleLabel.setForeground(Color.WHITE);
         titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        add(titleLabel, BorderLayout.NORTH);
+       this. add(titleLabel, BorderLayout.NORTH);
 
-        // **Form Panel (GridLayout)**
-        formPanel = new JPanel(new GridLayout(3, 2, 10, 10));
-        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
-        formPanel.setBackground(new Color(240, 248, 255)); // Light blue
+      formPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+      formPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+     formPanel.setBackground(Color.MAGENTA); 
 
-        // **Labels & Input Fields**
-        usernameLabel = new JLabel("Username:");
-        usernameLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        usernameLabel.setForeground(Color.BLACK);
-        formPanel.add(usernameLabel);
+      usernameLabel = new JLabel("Username:");
+       usernameLabel.setFont(new Font("Arial", Font.BOLD, 14));
+      usernameLabel.setForeground(Color.BLACK);
+      formPanel.add(usernameLabel);
 
-        usernameField = new JTextField();
-        usernameField.setFont(new Font("Arial", Font.PLAIN, 14));
-        formPanel.add(usernameField);
+      usernameField = new JTextField();
+       usernameField.setFont(new Font("Arial", Font.PLAIN, 14));
+      formPanel.add(usernameField);
 
-        passwordLabel = new JLabel("New Password:");
+         passwordLabel = new JLabel("New Password:");
         passwordLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        passwordLabel.setForeground(Color.BLACK);
-        formPanel.add(passwordLabel);
+      passwordLabel.setForeground(Color.BLACK);
+       formPanel.add(passwordLabel);
 
         passwordField = new JPasswordField();
-        passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
-        formPanel.add(passwordField);
+      passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
+      formPanel.add(passwordField);
 
-        statusLabel = new JLabel("Status:");
-        statusLabel.setFont(new Font("Arial", Font.BOLD, 14));
+      statusLabel = new JLabel("Status:");
+      statusLabel.setFont(new Font("Arial", Font.BOLD, 14));
         statusLabel.setForeground(Color.BLACK);
-        formPanel.add(statusLabel);
+      formPanel.add(statusLabel);
 
-        String[] statuses = {"Admin", "Normal Customer", "Premium Customer"};
-        statusComboBox = new JComboBox (statuses);
-        statusComboBox.setFont(new Font("Arial", Font.PLAIN, 14));
-        formPanel.add(statusComboBox);
+      String[] statuses = {"Admin", "Normal Customer", "Premium Customer"};
+      statusComboBox = new JComboBox (statuses);
+      statusComboBox.setFont(new Font("Arial", Font.PLAIN, 14));
+     formPanel.add(statusComboBox);
 
-        add(formPanel, BorderLayout.CENTER);
+      this.add(formPanel, BorderLayout.CENTER);
 
-        // **Button Panel**
-        buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        buttonPanel.setBackground(new Color(240, 248, 255));
+      
+      buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+     buttonPanel.setBackground(Color.BLUE);
 
-        updateButton = new JButton("Update");
-        updateButton.setFont(new Font("Arial", Font.BOLD, 16));
-        updateButton.setBackground(new Color(34, 139, 34)); // Green
-        updateButton.setForeground(Color.WHITE);
-        updateButton.setBorder(BorderFactory.createLineBorder(new Color(0, 100, 0), 2));
-        updateButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        updateButton.addActionListener(this);
-        buttonPanel.add(updateButton);
+      updateButton = new JButton("Update");
+     updateButton.setFont(new Font("Arial", Font.BOLD, 16));
+     updateButton.setBackground(Color.GREEN);
+      updateButton.setForeground(Color.WHITE);
+     updateButton.addActionListener(this);
+      buttonPanel.add(updateButton);
 
-        backButton = new JButton("Back");
-        backButton.setFont(new Font("Arial", Font.BOLD, 16));
-        backButton.setBackground(new Color(255, 69, 0)); // Red-orange
-        backButton.setForeground(Color.WHITE);
-        backButton.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
-        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        backButton.addActionListener(this);
-        buttonPanel.add(backButton);
+     backButton = new JButton("Back");
+    backButton.setFont(new Font("Arial", Font.BOLD, 16));
+     backButton.setBackground(Color.GREEN); 
+    backButton.setForeground(Color.WHITE);
+     backButton.addActionListener(this);
+    buttonPanel.add(backButton);
 
-        add(buttonPanel, BorderLayout.SOUTH);
+       this.add(buttonPanel, BorderLayout.SOUTH);
 
-        setVisible(true);
+    setVisible(true);
     }
 
     @Override
@@ -100,23 +94,23 @@ public class ChangePassword extends JFrame implements ActionListener {
             handleUpdate();
         } else if (e.getSource() == backButton) {
             dispose();
-           // new Login(); // Return to Login Page
+         
         }
     }
 
     private void handleUpdate() {
-        String username = usernameField.getText().trim();
-        String newPassword = new String(passwordField.getPassword()).trim();
-        String status = (String) statusComboBox.getSelectedItem();
+     String username = usernameField.getText().trim();
+      String newPassword = new String(passwordField.getPassword()).trim();
+    String status = (String) statusComboBox.getSelectedItem();
 
         if (username.isEmpty() || newPassword.isEmpty()) {
             JOptionPane.showMessageDialog(this, "All fields must be filled!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        File inputFile = new File("users.txt");
-        File tempFile = new File("tempUsers.txt");
-        boolean userFound = false;
+      File inputFile = new File("users.txt");
+       File tempFile = new File("tempUsers.txt");
+     boolean userFound = false;
 
         try (
             BufferedReader reader = new BufferedReader(new FileReader(inputFile));
@@ -134,7 +128,7 @@ public class ChangePassword extends JFrame implements ActionListener {
                     writer.newLine();
                 }
             }
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error processing file!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }

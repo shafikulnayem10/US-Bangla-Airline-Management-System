@@ -92,7 +92,7 @@ public class CancelFlights extends JFrame implements ActionListener {
         if (e.getSource() == removeButton) {
             handleremoveFlight();
         } else if (e.getSource() == backButton) {
-            dispose(); // Close the window when Back button is clicked
+            dispose(); 
         }
     }
 

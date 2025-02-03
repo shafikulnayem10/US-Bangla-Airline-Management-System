@@ -33,7 +33,7 @@ public class CustomerSupport extends JFrame implements ActionListener {
 
        
         JPanel formPanel = new JPanel(new GridLayout(3, 2, 10, 10));
-        formPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        
 
         
         formPanel.add(new JLabel("Username:"));

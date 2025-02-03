@@ -54,8 +54,8 @@ public class BookingFlights extends JFrame implements ActionListener {
         bookingTable.setGridColor(Color.ORANGE);
         bookingTable.setBackground(Color.BLUE); 
         bookingTable.setForeground(Color.WHITE);
-        bookingTable.setSelectionBackground(Color.BLUE); // Light blue when selected
-        bookingTable.setSelectionForeground(Color.BLACK); // Black text when selected
+        bookingTable.setSelectionBackground(Color.BLUE); 
+        bookingTable.setSelectionForeground(Color.BLACK);
 
         
         scrollPane = new JScrollPane(bookingTable);

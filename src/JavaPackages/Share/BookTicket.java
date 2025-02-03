@@ -15,7 +15,7 @@ public class BookTicket extends JFrame implements ActionListener {
        
         setTitle("Book Ticket");
         
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(600, 400);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));

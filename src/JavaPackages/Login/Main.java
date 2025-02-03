@@ -21,6 +21,6 @@ public class Main {
     // new ViewCustomerDetails();
      //new AddFlights();
      //new CancelFlights();
-     new ViewFlights();
+     //new ViewFlights();
     }
 }

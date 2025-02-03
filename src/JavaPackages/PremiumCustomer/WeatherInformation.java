@@ -27,7 +27,7 @@ public class WeatherInformation extends JFrame {
         JLabel titleLabel = new JLabel("Weather Report", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
         titleLabel.setOpaque(true);
-        titleLabel.setBackground(new Color(70, 130, 180)); // Steel blue
+        titleLabel.setBackground(new Color(70, 130, 180)); 
         titleLabel.setForeground(Color.WHITE);
         add(titleLabel, BorderLayout.NORTH);
 

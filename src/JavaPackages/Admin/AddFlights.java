@@ -92,7 +92,7 @@ public class AddFlights extends JFrame implements ActionListener {
         if (e.getSource() == addButton) {
             handleaddFlight();
         } else if (e.getSource() == backButton) {
-            dispose(); // Close the window when Back button is clicked
+            dispose(); 
         }
     }
 

@@ -38,13 +38,13 @@ public class Login extends JFrame implements ActionListener {
       titleLabel = new JLabel("Login", JLabel.CENTER);
     titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
         titleLabel.setOpaque(true);
-        titleLabel.setBackground(new Color(72, 61, 139)); // Dark Slate Blue
+        titleLabel.setBackground(Color.BLUE); 
         titleLabel.setForeground(Color.WHITE);
         backgroundLabel.add(titleLabel, BorderLayout.NORTH);
 
         
      formPanel = new JPanel(new GridLayout(3, 2, 10, 10));
-       formPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+       
       formPanel.setOpaque(false);
 
       
@@ -66,7 +66,7 @@ public class Login extends JFrame implements ActionListener {
 
       usernameField = new JTextField();
     usernameField.setFont(new Font("Arial", Font.PLAIN, 18));
-      usernameField.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+      
        formPanel.add(usernameField);
 
       passwordLabel = new JLabel("Password:");
@@ -77,14 +77,14 @@ public class Login extends JFrame implements ActionListener {
 
      passwordField = new JPasswordField();
      passwordField.setFont(new Font("Arial", Font.PLAIN, 10));
-    passwordField.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 2));
+   
     formPanel.add(passwordField);
 
     backgroundLabel.add(formPanel, BorderLayout.CENTER);
 
       
      buttonPanel = new JPanel(new GridLayout(2, 2, 10, 10));
-   buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+   
     buttonPanel.setOpaque(false);
 
     loginButton = new JButton("Log In");

@@ -53,7 +53,7 @@ public class PremiumCustomerHomepage extends Homepage  {
         customerSupportButton = new JButton("Customer Support");
         customerSupportButton.setBounds(550, 180, 250, 50);
         customerSupportButton.setFont(new Font("Arial", Font.BOLD, 16));
-        customerSupportButton.setBackground(Color.GREEN); // Pale green
+        customerSupportButton.setBackground(Color.GREEN); 
         customerSupportButton.setForeground(Color.BLACK);
         customerSupportButton.addActionListener(e -> new CustomerSupport());
         buttonPanel.add(customerSupportButton);

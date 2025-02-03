@@ -20,3 +20,4 @@ a,a,Admin,a
 t,t,Normal Customer,t
 p,p,Premium Customer,p
 admin,admin,Normal Customer,admin
+admin,admin,Admin,admin

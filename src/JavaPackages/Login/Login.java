@@ -152,7 +152,7 @@ public class Login extends JFrame implements ActionListener {
             while ((line = reader.readLine()) != null) {
                 String[] userData = line.split(",");
                 if (userData[0].equals(username) && userData[1].equals(password) && userData[2].equals(status)) {
-                    JOptionPane.showMessageDialog(this, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    
                     dispose();
                     if ("Admin".equals(status)) {
                         new AdminHomepage(username);

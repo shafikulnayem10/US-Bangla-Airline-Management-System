@@ -22,3 +22,4 @@ p,admin,Admin,p
 admin,admin,Normal Customer,admin
 admin,admin,Admin,admin
 p,admin,Admin,p
+nameisnayeem,nayeem@10,Admin,nayeem

@@ -74,6 +74,7 @@ public class AdminHomepage extends Homepage implements ActionListener {
         viewFlightsButton.setBounds(50, 500, 200, 50);
         viewFlightsButton.setFont(new Font("Arial", Font.BOLD, 16));
         viewFlightsButton.setBackground(Color.BLUE); 
+        viewFlightsButton.setForeground(Color.WHITE);
        viewFlightsButton.setActionCommand("View Flights");
      viewFlightsButton.addActionListener(this);
        buttonPanel.add(viewFlightsButton);

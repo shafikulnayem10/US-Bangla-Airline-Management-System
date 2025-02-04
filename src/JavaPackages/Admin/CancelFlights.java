@@ -7,42 +7,39 @@ import java.awt.event.ActionListener;
 import java.io.*;
 
 public class CancelFlights extends JFrame implements ActionListener {
-     private JTextField flightCodeField;
-     private JComboBox fromComboBox, toComboBox;
+    private JTextField flightCodeField;
+    private JComboBox<String> fromComboBox, toComboBox;
     private JButton removeButton, backButton;
     private JLabel titleLabel, fromLabel, toLabel, flightCodeLabel;
     private JPanel formPanel, buttonPanel;
 
     public CancelFlights() {
-       
         this.setTitle("Cancel Flights");
         this.setSize(500, 300);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout(10, 10));
 
-      
         ImageIcon bdFlag = new ImageIcon("src/JavaPackages/Images/bdflag.png");
         this.setIconImage(bdFlag.getImage());
 
-       
+        // Title Label
         titleLabel = new JLabel("Cancel Flights", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
         titleLabel.setOpaque(true);
-        titleLabel.setBackground(Color.BLUE); 
+        titleLabel.setBackground(Color.BLUE);
         titleLabel.setForeground(Color.WHITE);
-         this.add(titleLabel, BorderLayout.NORTH);
+        this.add(titleLabel, BorderLayout.NORTH);
 
-        
+        // Form Panel
         formPanel = new JPanel(new GridLayout(3, 2, 10, 10));
-      
 
         fromLabel = new JLabel("From:");
         fromLabel.setFont(new Font("Arial", Font.BOLD, 14));
         formPanel.add(fromLabel);
 
         String[] fromLocations = {"Dhaka", "Chittagong", "Sylhet"};
-        fromComboBox = new JComboBox (fromLocations);
+        fromComboBox = new JComboBox<>(fromLocations);
         formPanel.add(fromComboBox);
 
         toLabel = new JLabel("To:");
@@ -50,7 +47,7 @@ public class CancelFlights extends JFrame implements ActionListener {
         formPanel.add(toLabel);
 
         String[] toLocations = {"Chittagong", "Sylhet", "Dhaka"};
-        toComboBox = new JComboBox (toLocations);
+        toComboBox = new JComboBox<>(toLocations);
         formPanel.add(toComboBox);
 
         flightCodeLabel = new JLabel("Flight Code:");
@@ -62,28 +59,24 @@ public class CancelFlights extends JFrame implements ActionListener {
 
         this.add(formPanel, BorderLayout.CENTER);
 
-    
+        // Button Panel
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        
 
         removeButton = new JButton("Remove Flight");
         removeButton.setFont(new Font("Arial", Font.BOLD, 14));
-        removeButton.setBackground(Color.GREEN); 
+        removeButton.setBackground(Color.GREEN);
         removeButton.setForeground(Color.WHITE);
         removeButton.addActionListener(this);
         buttonPanel.add(removeButton);
 
         backButton = new JButton("Back");
         backButton.setFont(new Font("Arial", Font.BOLD, 14));
-        backButton.setBackground(Color.RED); 
+        backButton.setBackground(Color.RED);
         backButton.setForeground(Color.WHITE);
-        
         backButton.addActionListener(this);
         buttonPanel.add(backButton);
 
         this.add(buttonPanel, BorderLayout.SOUTH);
-
-        
         setVisible(true);
     }
 
@@ -92,7 +85,7 @@ public class CancelFlights extends JFrame implements ActionListener {
         if (e.getSource() == removeButton) {
             handleremoveFlight();
         } else if (e.getSource() == backButton) {
-            dispose(); 
+            dispose();
         }
     }
 
@@ -112,39 +105,65 @@ public class CancelFlights extends JFrame implements ActionListener {
             return;
         }
 
-        File inputFile = new File("addandcancelflight.txt");
-        File tempFile = new File("tempFlights.txt");
+        // Remove flight from addandcancelflight.txt
+        File flightFile = new File("addandcancelflight.txt");
+        File tempFlightFile = new File("tempFlights.txt");
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(flightFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFlightFile))) {
 
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] flightData = line.split(",");
-      
-               if (flightData.length > 2&& flightData[0].equals(flightCode) &&  flightData[1].equals(from) && flightData[2].equals(to)) {
-                        flightFound = true; 
-                        continue;
-                    }
-                
+                if (flightData.length > 2 && flightData[0].equals(flightCode) && flightData[1].equals(from) && flightData[2].equals(to)) {
+                    flightFound = true;
+                    continue; // Skip writing this line (removing the flight)
+                }
                 writer.write(line);
                 writer.newLine();
             }
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Error processing file!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error processing flight removal!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        
-        if (flightFound) {
-            if (inputFile.delete() && tempFile.renameTo(inputFile)) {
-                JOptionPane.showMessageDialog(this, "Flight removed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Error updating file!", "Error", JOptionPane.ERROR_MESSAGE);
+        // Remove flight bookings from bookingsflightList.txt
+        File bookingsFile = new File("bookflightList.txt");
+        File tempBookingsFile = new File("tempBookings.txt");
+        boolean bookingFound = false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(bookingsFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(tempBookingsFile))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] bookingData = line.split(",");
+                if (bookingData.length > 0 && bookingData[0].equals(flightCode)) {
+                    bookingFound = true;
+                    continue; // Skip writing this line (removing the booking)
+                }
+                writer.write(line);
+                writer.newLine();
             }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error processing flight booking removal!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Update files after removal
+        boolean flightsUpdated = flightFile.delete() && tempFlightFile.renameTo(flightFile);
+        boolean bookingsUpdated = bookingsFile.delete() && tempBookingsFile.renameTo(bookingsFile);
+
+        if (flightFound && flightsUpdated) {
+            if (bookingFound && bookingsUpdated) {
+                JOptionPane.showMessageDialog(this, "Flight and associated bookings removed successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Flight removed successfully! No bookings were found.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            }
+            dispose();
         } else {
-            tempFile.delete();
+            tempFlightFile.delete();
+            tempBookingsFile.delete();
             JOptionPane.showMessageDialog(this, "No matching flight found!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }

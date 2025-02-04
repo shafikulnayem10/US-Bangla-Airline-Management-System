@@ -3,5 +3,4 @@
 280,Dhaka , Sylhet
 809,Dhaka,Sylhet
 30008,Chittagong,Sylhet
-3000,Dhaka,Sylhet
-301,Dhaka,Sylhet
+9,Dhaka,Sylhet

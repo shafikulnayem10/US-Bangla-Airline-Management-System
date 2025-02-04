@@ -69,7 +69,7 @@ public class PremiumCustomerHomepage extends Homepage  {
         buttonPanel.add(weatherInfoButton);
      
 
-JButton loungeAccessButton = new JButton("Lounge Access");
+ loungeAccessButton = new JButton("Lounge Access");
 loungeAccessButton.setBounds(550, 260, 200, 50);
 loungeAccessButton.setFont(new Font("Arial", Font.BOLD, 16));
 loungeAccessButton.setBackground(Color.PINK);
@@ -78,7 +78,7 @@ loungeAccessButton.addActionListener(e -> new LoungeAccess());
 buttonPanel.add(loungeAccessButton);
 
 
-JButton flightUpgradeButton = new JButton("Request Flight Upgrade");
+flightUpgradeButton = new JButton("Request Flight Upgrade");
 flightUpgradeButton.setBounds(300, 360, 250, 50);
 flightUpgradeButton.setFont(new Font("Arial", Font.BOLD, 16));
 flightUpgradeButton.setBackground(Color.YELLOW);
@@ -113,5 +113,6 @@ buttonPanel.add(flightUpgradeButton);
 public static void main(String[] args) {
     new PremiumCustomerHomepage("TestUser"); 
 }
+
 
 }

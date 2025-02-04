@@ -8,7 +8,7 @@ import java.io.*;
 
 public class CancelFlights extends JFrame implements ActionListener {
     private JTextField flightCodeField;
-    private JComboBox<String> fromComboBox, toComboBox;
+    private JComboBox  fromComboBox, toComboBox;
     private JButton removeButton, backButton;
     private JLabel titleLabel, fromLabel, toLabel, flightCodeLabel;
     private JPanel formPanel, buttonPanel;
@@ -23,7 +23,7 @@ public class CancelFlights extends JFrame implements ActionListener {
         ImageIcon bdFlag = new ImageIcon("src/JavaPackages/Images/bdflag.png");
         this.setIconImage(bdFlag.getImage());
 
-        // Title Label
+      
         titleLabel = new JLabel("Cancel Flights", JLabel.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
         titleLabel.setOpaque(true);
@@ -31,7 +31,7 @@ public class CancelFlights extends JFrame implements ActionListener {
         titleLabel.setForeground(Color.WHITE);
         this.add(titleLabel, BorderLayout.NORTH);
 
-        // Form Panel
+        
         formPanel = new JPanel(new GridLayout(3, 2, 10, 10));
 
         fromLabel = new JLabel("From:");
@@ -39,7 +39,7 @@ public class CancelFlights extends JFrame implements ActionListener {
         formPanel.add(fromLabel);
 
         String[] fromLocations = {"Dhaka", "Chittagong", "Sylhet"};
-        fromComboBox = new JComboBox<>(fromLocations);
+        fromComboBox = new JComboBox(fromLocations);
         formPanel.add(fromComboBox);
 
         toLabel = new JLabel("To:");
@@ -47,7 +47,7 @@ public class CancelFlights extends JFrame implements ActionListener {
         formPanel.add(toLabel);
 
         String[] toLocations = {"Chittagong", "Sylhet", "Dhaka"};
-        toComboBox = new JComboBox<>(toLocations);
+        toComboBox = new JComboBox(toLocations);
         formPanel.add(toComboBox);
 
         flightCodeLabel = new JLabel("Flight Code:");
@@ -59,7 +59,7 @@ public class CancelFlights extends JFrame implements ActionListener {
 
         this.add(formPanel, BorderLayout.CENTER);
 
-        // Button Panel
+        
         buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
         removeButton = new JButton("Remove Flight");
@@ -105,7 +105,7 @@ public class CancelFlights extends JFrame implements ActionListener {
             return;
         }
 
-        // Remove flight from addandcancelflight.txt
+        
         File flightFile = new File("addandcancelflight.txt");
         File tempFlightFile = new File("tempFlights.txt");
 
@@ -117,7 +117,7 @@ public class CancelFlights extends JFrame implements ActionListener {
                 String[] flightData = line.split(",");
                 if (flightData.length > 2 && flightData[0].equals(flightCode) && flightData[1].equals(from) && flightData[2].equals(to)) {
                     flightFound = true;
-                    continue; // Skip writing this line (removing the flight)
+                    continue; 
                 }
                 writer.write(line);
                 writer.newLine();
@@ -127,7 +127,7 @@ public class CancelFlights extends JFrame implements ActionListener {
             return;
         }
 
-        // Remove flight bookings from bookingsflightList.txt
+       
         File bookingsFile = new File("bookflightList.txt");
         File tempBookingsFile = new File("tempBookings.txt");
         boolean bookingFound = false;
@@ -140,7 +140,7 @@ public class CancelFlights extends JFrame implements ActionListener {
                 String[] bookingData = line.split(",");
                 if (bookingData.length > 0 && bookingData[0].equals(flightCode)) {
                     bookingFound = true;
-                    continue; // Skip writing this line (removing the booking)
+                    continue; 
                 }
                 writer.write(line);
                 writer.newLine();
@@ -150,7 +150,7 @@ public class CancelFlights extends JFrame implements ActionListener {
             return;
         }
 
-        // Update files after removal
+       
         boolean flightsUpdated = flightFile.delete() && tempFlightFile.renameTo(flightFile);
         boolean bookingsUpdated = bookingsFile.delete() && tempBookingsFile.renameTo(bookingsFile);
 

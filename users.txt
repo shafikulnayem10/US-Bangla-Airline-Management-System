@@ -18,6 +18,7 @@ t,t,Normal Customer,t
 r,r,Normal Customer,r
 a,a,Admin,a
 t,t,Normal Customer,t
-p,p,Premium Customer,p
+p,admin,Admin,p
 admin,admin,Normal Customer,admin
 admin,admin,Admin,admin
+p,admin,Admin,p

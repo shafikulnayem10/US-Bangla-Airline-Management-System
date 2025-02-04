@@ -8,10 +8,11 @@ import JavaPackages.Login.Login;
 import JavaPackages.Share.ProfileView;
 import javax.swing.*;
 import java.awt.*;
- 
+
+
 public class PremiumCustomerHomepage extends Homepage  {
-    private JButton bookFlightButton, cancelFlightButton, profileButton, viewFlightsButton, customerSupportButton, weatherInfoButton, logoutButton;
- 
+    private JButton bookFlightButton, cancelFlightButton, profileButton, viewFlightsButton, customerSupportButton, weatherInfoButton,loungeAccessButton,flightUpgradeButton, logoutButton;
+    
     public PremiumCustomerHomepage(String currentUsername) {
         super(currentUsername);
         initializeButtons();
@@ -25,7 +26,7 @@ public class PremiumCustomerHomepage extends Homepage  {
 
      
         bookFlightButton = new JButton("Book Flight");
-        bookFlightButton.setBounds(250, 100, 250, 50);
+        bookFlightButton.setBounds(300, 100, 200, 50);
         bookFlightButton.setFont(new Font("Arial", Font.BOLD, 16));
         bookFlightButton.setBackground(Color.GREEN);
         bookFlightButton.setForeground(Color.BLACK);
@@ -34,7 +35,7 @@ public class PremiumCustomerHomepage extends Homepage  {
  
         
         cancelFlightButton = new JButton("Cancel Flight");
-        cancelFlightButton.setBounds(550, 100, 250, 50);
+        cancelFlightButton.setBounds(550, 100, 200, 50);
         cancelFlightButton.setFont(new Font("Arial", Font.BOLD, 16));
         cancelFlightButton.setBackground(Color.GREEN); 
         cancelFlightButton.setForeground(Color.BLACK);
@@ -42,7 +43,7 @@ public class PremiumCustomerHomepage extends Homepage  {
         buttonPanel.add(cancelFlightButton);
  
         viewFlightsButton = new JButton("View Flight Details");
-        viewFlightsButton.setBounds(250, 180, 250, 50);
+        viewFlightsButton.setBounds(300, 180, 200, 50);
         viewFlightsButton.setFont(new Font("Arial", Font.BOLD, 16));
         viewFlightsButton.setBackground(Color.GREEN); 
         viewFlightsButton.setForeground(Color.BLACK);
@@ -51,7 +52,7 @@ public class PremiumCustomerHomepage extends Homepage  {
  
        
         customerSupportButton = new JButton("Customer Support");
-        customerSupportButton.setBounds(550, 180, 250, 50);
+        customerSupportButton.setBounds(550, 180, 200, 50);
         customerSupportButton.setFont(new Font("Arial", Font.BOLD, 16));
         customerSupportButton.setBackground(Color.GREEN); 
         customerSupportButton.setForeground(Color.BLACK);
@@ -60,19 +61,37 @@ public class PremiumCustomerHomepage extends Homepage  {
  
         
         weatherInfoButton = new JButton("Weather Information");
-        weatherInfoButton.setBounds(250, 260, 250, 50);
+        weatherInfoButton.setBounds(300, 260, 200, 50);
         weatherInfoButton.setFont(new Font("Arial", Font.BOLD, 16));
-        weatherInfoButton.setBackground(Color.BLUE); 
-        weatherInfoButton.setForeground(Color.WHITE);
+        weatherInfoButton.setBackground(Color.ORANGE); 
+        weatherInfoButton.setForeground(Color.BLACK);
         weatherInfoButton.addActionListener(e -> new WeatherInformation());
         buttonPanel.add(weatherInfoButton);
- 
-       
+     
+
+JButton loungeAccessButton = new JButton("Lounge Access");
+loungeAccessButton.setBounds(550, 260, 200, 50);
+loungeAccessButton.setFont(new Font("Arial", Font.BOLD, 16));
+loungeAccessButton.setBackground(Color.PINK);
+loungeAccessButton.setForeground(Color.BLACK);
+loungeAccessButton.addActionListener(e -> new LoungeAccess());
+buttonPanel.add(loungeAccessButton);
+
+
+JButton flightUpgradeButton = new JButton("Request Flight Upgrade");
+flightUpgradeButton.setBounds(300, 360, 250, 50);
+flightUpgradeButton.setFont(new Font("Arial", Font.BOLD, 16));
+flightUpgradeButton.setBackground(Color.YELLOW);
+flightUpgradeButton.setForeground(Color.BLACK);
+flightUpgradeButton.addActionListener(e -> new FlightUpgrade());
+buttonPanel.add(flightUpgradeButton);
+
+        
         ImageIcon viewprofileicon = new ImageIcon("src/JavaPackages/Images/viewprofileicon.jpg");
         profileButton = new JButton(viewprofileicon);
-        profileButton.setBounds(550, 260, 80, 80);
+        profileButton.setBounds(650, 330, 80, 80);
         profileButton.setFont(new Font("Arial", Font.BOLD, 16));
-        profileButton.setBackground(Color.WHITE); 
+        profileButton.setBackground(Color.ORANGE); 
         profileButton.setForeground(Color.BLACK);
         profileButton.addActionListener(e -> {
             new ProfileView(currentUsername, this);
@@ -81,16 +100,18 @@ public class PremiumCustomerHomepage extends Homepage  {
 
         
         logoutButton = new JButton("Log Out");
-        logoutButton.setBounds(400, 400, 250, 50);
+        logoutButton.setBounds(375, 450, 200, 50);
         logoutButton.setFont(new Font("Arial", Font.BOLD, 16));
         logoutButton.setBackground(Color.RED); 
-        logoutButton.setForeground(Color.WHITE);
+        logoutButton.setForeground(Color.BLACK);
         logoutButton.addActionListener(e -> {
             dispose(); 
             new Login();
         });
         buttonPanel.add(logoutButton);
     }
- 
-   
+public static void main(String[] args) {
+    new PremiumCustomerHomepage("TestUser"); 
+}
+
 }
